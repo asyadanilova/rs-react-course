@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo-link {
+  display: flex;
+  align-items: flex-end;
+  margin: auto 2vw;
+}
+
+.header__logo-icon {
+  width: 60px;
+  height: 60px;
+  rotate: 30deg;
+}
+
+.header__app-name {
+  font-family: 'Blanka', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.nav_button {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: auto 2vw;
+
+  li:not(:first-child) {
+    padding-left: 10px;
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-color);
+  transition-duration: 0.3s;
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
