@@ -1,35 +1,44 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 
 interface Props {
+  fallbackUI: ReactNode;
   children?: ReactNode;
 }
-
 interface State {
   hasError: boolean;
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static defaultProps: Partial<Props> = {
+    fallbackUI: (
+      <div className="fallback">
+        <h1 className="header">Oops! Something went wrong.</h1>
+        <button
+          onClick={() => window.location.reload()}
+          style={{ marginTop: '10px' }}
+        >
+          Reload the page
+        </button>
+      </div>
+    ),
   };
 
-  public static getDerivedStateFromError(_: Error): State {
-    console.log(_);
+  static getDerivedStateFromError(): { hasError: boolean } {
     return { hasError: true };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('Uncaught error:', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
-      return (
-        <div className="error-boundary">
-          <h1>Oops! Something went wrong...</h1>
-          <p>Please try refreshing the page.</p>
-        </div>
-      );
+      return this.props.fallbackUI;
     }
     return this.props.children;
   }

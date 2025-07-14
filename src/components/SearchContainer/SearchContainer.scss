@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 5vw;
+  gap: 2vw;
   width: 90%;
   margin: auto;
   padding: 1.5vw;
@@ -13,7 +13,7 @@
 
 input {
   height: 5vw;
-  width: 55vw;
+  width: 45vw;
   border-radius: 0.5rem;
   text-align: center;
   font-size: 1.2rem;
@@ -37,7 +37,7 @@ input:hover {
 
 button {
   height: 5vw;
-  width: 12vw;
+  min-width: 18vw;
   border-radius: 0.5rem;
   background-color: var(--primary-color);
   color: #ffffff;
@@ -74,21 +74,29 @@ button:focus {
   }
 
   button {
-    width: 50vw;
+    min-width: 50vw;
     height: 6vw;
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
+  .search__input {
+    min-width: 100%;
+  }
+
   input {
-    width: 90%;
+    min-width: 100%;
     font-size: 0.9rem;
     height: 8vw;
   }
 
+  .search__button {
+    min-width: 100%;
+  }
+
   button {
-    width: 90%;
+    min-width: 100%;
     font-size: 0.8rem;
     height: 8vw;
   }

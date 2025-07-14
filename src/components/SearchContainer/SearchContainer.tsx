@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './SearchContainer.scss';
+import { ErrorButton } from '../ErrorButton/ErrorButton';
 
 class SearchContainer extends Component {
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -41,6 +42,7 @@ class SearchContainer extends Component {
         <div className="search">
           <div className="search__input">{this.searchInput()}</div>
           <div className="search__button">{this.searchButton()}</div>
+          <ErrorButton />
         </div>
       </>
     );

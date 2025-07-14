@@ -48,3 +48,15 @@
     color: var(--primary-color);
   }
 }
+
+@media (max-width: 768px) {
+  .nav_button {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav_button {
+    display: none;
+  }
+}
