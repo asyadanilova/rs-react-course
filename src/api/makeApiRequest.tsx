@@ -20,7 +20,7 @@ export async function makeApiRequest<T>(
     headers,
   };
 
-  const apiUrl = 'http://universities.hipolabs.com';
+  const apiUrl = 'https://react-app-danilovaasya.netlify.app/api';
 
   if (body && ['POST', 'PUT', 'PATCH'].includes(method)) {
     requestOptions.body = JSON.stringify(body);
