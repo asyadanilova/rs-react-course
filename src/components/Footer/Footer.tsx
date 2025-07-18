@@ -16,7 +16,9 @@ class Footer extends Component {
             Asya <i className="bi bi-github"></i>
           </a>
         </p>
-        <p>&copy; {year} My University Search. All rights reserved.</p>
+        <p data-testid="year-test">
+          &copy; {year} My University Search. All rights reserved.
+        </p>
         <small>
           Powered by Open APIs. Data may not be accurate for all universities.
         </small>
