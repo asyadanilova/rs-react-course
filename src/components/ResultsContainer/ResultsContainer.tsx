@@ -1,87 +1,57 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import './ResultsContainer.scss';
 import { searchUniversities } from '../../api/searchUniversities';
 import { getAllUniversities } from '../../api/getAllUniversities';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
 
-type ResultsProps = object;
+const ResultsContainer: React.FC = () => {
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-interface ResultsState {
-  universities: University[];
-  loading: boolean;
-  error: string | null;
-}
-
-class ResultsContainer extends Component<ResultsProps, ResultsState> {
-  constructor(props: ResultsProps) {
-    super(props);
-
-    this.state = {
-      universities: [],
-      loading: true,
-      error: null,
-    };
-  }
-
-  async fetchUniversities(): Promise<void> {
+  const fetchUniversities = async () => {
     const searchTerm = localStorage.getItem('searchTerm') || '';
 
-    if (!searchTerm || searchTerm.trim() === '') {
-      try {
-        const universities = await getAllUniversities();
-        this.setState({ universities, loading: false });
-      } catch (error) {
-        this.setState({
-          error: `${error}` || 'Unknown error',
-          loading: false,
-        });
-        throw new Error(`${error}` || 'Error fetching universities');
-      }
-      return;
-    }
+    setLoading(true);
 
     try {
-      this.setState({ loading: true });
-      const universities = await searchUniversities(searchTerm);
-      this.setState({ universities, loading: false });
-    } catch (error) {
-      console.error('Error fetching universities:', error);
-      this.setState({
-        error: `${error}` || 'Unknown error',
-        loading: false,
-      });
+      if (!searchTerm || searchTerm.trim() === '') {
+        const fetchedUniversities = await getAllUniversities();
+        setUniversities(fetchedUniversities);
+      } else {
+        const searchedUniversities = await searchUniversities(searchTerm);
+        setUniversities(searchedUniversities);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching universities:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  async componentDidMount(): Promise<void> {
-    await this.fetchUniversities();
+  useEffect(() => {
+    fetchUniversities();
+    const handleSearchTermUpdate = async () => {
+      await fetchUniversities();
+    };
+    window.addEventListener('searchTermUpdated', handleSearchTermUpdate);
 
-    window.addEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
+    return () => {
+      window.removeEventListener('searchTermUpdated', handleSearchTermUpdate);
+    };
+  }, []);
 
-  componentWillUnmount(): void {
-    window.removeEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
-
-  renderUniversitiesList = (): JSX.Element[] => {
-    const { universities } = this.state;
-
-    if (!universities || universities.length === 0) {
-      return [
-        <div key="no-universities" className="error-container">
+  const renderUniversitiesList = (): JSX.Element[] | JSX.Element => {
+    if (!Array.isArray(universities) || universities.length === 0) {
+      return (
+        <div className="error-container">
           <img src={noData} alt="no-data" />
-          <p key="no-universities" className="error-message">
-            No universities available to display.
-          </p>
-        </div>,
-      ];
+          <p className="error-message">No universities available to display.</p>
+        </div>
+      );
     }
 
     return universities.map((university: University) => (
@@ -100,29 +70,25 @@ class ResultsContainer extends Component<ResultsProps, ResultsState> {
     ));
   };
 
-  render() {
-    const { loading, error } = this.state;
-
-    if (loading) {
-      return (
-        <div className="loader-container">
-          <p className="loader-message">Loading universities, please wait...</p>
-        </div>
-      );
-    }
-
+  if (loading) {
     return (
-      <ErrorBoundary>
-        <div className="results-container">
-          {error ? (
-            <p className="error-message">{error}</p>
-          ) : (
-            this.renderUniversitiesList()
-          )}
-        </div>
-      </ErrorBoundary>
+      <div className="loader-container">
+        <p className="loader-message">Loading universities, please wait...</p>
+      </div>
     );
   }
-}
+
+  return (
+    <ErrorBoundary>
+      <div className="results-container">
+        {error ? (
+          <p className="error-message">{error}</p>
+        ) : (
+          renderUniversitiesList()
+        )}
+      </div>
+    </ErrorBoundary>
+  );
+};
 
 export { ResultsContainer };

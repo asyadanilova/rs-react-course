@@ -91,17 +91,13 @@ describe('ResultsContainer', () => {
   });
 
   it('Calls fetchUniversities when searchTermUpdated is triggered', async () => {
-    const fetchUniversitiesSpy = vi.spyOn(
-      ResultsContainer.prototype,
-      'fetchUniversities'
-    );
-
+    mockedGetAllUniversities.mockResolvedValueOnce([]);
     render(<ResultsContainer />);
     const event = new Event('searchTermUpdated');
     window.dispatchEvent(event);
-    expect(fetchUniversitiesSpy).toHaveBeenCalled();
-
-    fetchUniversitiesSpy.mockRestore();
+    await waitFor(() => {
+      expect(mockedGetAllUniversities).toHaveBeenCalledTimes(2);
+    });
   });
 
   it('Should set error and throw when getAllUniversities fails', async () => {
@@ -112,15 +108,14 @@ describe('ResultsContainer', () => {
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    await act(async () => {
-      render(<ResultsContainer />);
-    });
+    render(<ResultsContainer />);
 
     await waitFor(() => {
       expect(
-        screen.getByText('Error: Test error for getAllUniversities')
+        screen.getByText('Test error for getAllUniversities')
       ).toBeInTheDocument();
     });
+
     consoleErrorSpy.mockRestore();
   });
 
