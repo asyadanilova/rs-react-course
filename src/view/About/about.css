@@ -1,0 +1,98 @@
+.about-us {
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.page-header {
+  text-align: center;
+  background: var(--background-color);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.scroll-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.team-member {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  background: var(--background-color);
+  border-radius: 8px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  padding: 20px;
+}
+
+.team-member.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.team-member:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary-color);
+}
+
+.member-photo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.member-name {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.member-role {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.member-bio,
+.member-contributions {
+  text-align: start;
+  align-self: flex-start;
+  margin: 10px 0;
+}
+
+.github-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 680px) {
+  .team-members {
+    flex-direction: column;
+  }
+
+  .team-member {
+    width: 100%;
+  }
+}

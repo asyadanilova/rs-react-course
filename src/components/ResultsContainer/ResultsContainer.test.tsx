@@ -2,9 +2,10 @@ import { describe, it, expect, vi, afterEach, Mock } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { ResultsContainer } from './ResultsContainer';
 import { getAllUniversities } from '../../api/getAllUniversities';
+import { MemoryRouter, Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 const mockedGetAllUniversities = getAllUniversities as Mock;
-const mockedSearchUniversities = getAllUniversities as Mock;
 
 vi.mock('../../api/getAllUniversities', () => {
   return {
@@ -28,13 +29,20 @@ describe('ResultsContainer', () => {
   it('Should render loader initially', async () => {
     const mockPromise = new Promise<University[]>(() => []);
     mockedGetAllUniversities.mockReturnValueOnce(mockPromise);
-    render(<ResultsContainer />);
+
+    render(
+      <MemoryRouter>
+        <ResultsContainer />
+      </MemoryRouter>
+    );
+
     const loader = screen.getByText((content, element) => {
       return (
         element?.tagName.toLowerCase() === 'p' &&
         content.includes('Loading universities, please wait...')
       );
     });
+
     expect(loader).toBeInTheDocument();
     mockPromise.catch(() => {});
   });
@@ -60,9 +68,11 @@ describe('ResultsContainer', () => {
     ];
     mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
 
-    await act(async () => {
-      render(<ResultsContainer />);
-    });
+    render(
+      <MemoryRouter>
+        <ResultsContainer />
+      </MemoryRouter>
+    );
 
     await waitFor(() => {
       const harvard = screen.getByText((content) =>
@@ -76,66 +86,121 @@ describe('ResultsContainer', () => {
     });
   });
 
+  it('Should paginate universities and display correct page', async () => {
+    const mockUniversities: University[] = Array.from(
+      { length: 30 },
+      (_, index) => ({
+        domains: [`domain${index}.com`],
+        country: `Country ${index}`,
+        name: `University ${index}`,
+        web_pages: [`https://www.domain${index}.com`],
+        stateProvince: null,
+        alpha_two_code: 'XX',
+      })
+    );
+    mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
+
+    render(
+      <MemoryRouter>
+        <ResultsContainer />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Page 1 of 2/i)).toBeInTheDocument();
+      const firstUniversity = screen.getByText(/University 0/i);
+      const lastUniversityOnPage1 = screen.getByText(/University 14/i);
+      expect(firstUniversity).toBeInTheDocument();
+      expect(lastUniversityOnPage1).toBeInTheDocument();
+    });
+
+    const nextButton = screen.getByText(/Next/i);
+    await act(async () => {
+      nextButton.click();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Page 2 of 2/i)).toBeInTheDocument();
+
+      const firstUniversityOnPage2 = screen.getByText(/University 15/i);
+      const lastUniversityOnPage2 = screen.getByText(/University 29/i);
+      expect(firstUniversityOnPage2).toBeInTheDocument();
+      expect(lastUniversityOnPage2).toBeInTheDocument();
+    });
+  });
+
   it('Should render fallback when there is no data', async () => {
     mockedGetAllUniversities.mockResolvedValueOnce([]);
 
-    render(<ResultsContainer />);
+    render(
+      <MemoryRouter>
+        <ResultsContainer />
+      </MemoryRouter>
+    );
+
     await waitFor(() => {
       const noDataMessage = screen.getByText(
         /No universities available to display/i
       );
       expect(noDataMessage).toBeInTheDocument();
     });
+
     const noDataImage = screen.getByAltText('no-data');
     expect(noDataImage).toBeInTheDocument();
   });
 
-  it('Calls fetchUniversities when searchTermUpdated is triggered', async () => {
-    mockedGetAllUniversities.mockResolvedValueOnce([]);
-    render(<ResultsContainer />);
-    const event = new Event('searchTermUpdated');
-    window.dispatchEvent(event);
+  it('Should update the URL when selecting a university for details', async () => {
+    const mockUniversities: University[] = [
+      {
+        domains: ['harvard.edu'],
+        country: 'USA',
+        stateProvince: null,
+        name: 'Harvard University',
+        web_pages: ['https://www.harvard.edu'],
+        alpha_two_code: 'US',
+      },
+    ];
+    mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
+
+    const history = createMemoryHistory();
+
+    render(
+      <Router location={history.location} navigator={history}>
+        <ResultsContainer />
+      </Router>
+    );
+
     await waitFor(() => {
-      expect(mockedGetAllUniversities).toHaveBeenCalledTimes(2);
+      const harvard = screen.getByText(/Harvard University/i);
+      expect(harvard).toBeInTheDocument();
     });
+
+    const harvardCard = screen.getByText(/Harvard University/i);
+    await act(async () => {
+      harvardCard.click();
+    });
+
+    expect(history.location.search).toContain('details=harvard.edu');
   });
 
-  it('Should set error and throw when getAllUniversities fails', async () => {
-    const mockedError = new Error('Test error for getAllUniversities');
+  it('Should handle errors gracefully', async () => {
+    const mockedError = new Error('Unexpected API Failure');
     mockedGetAllUniversities.mockRejectedValueOnce(mockedError);
 
     const consoleErrorSpy = vi
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    render(<ResultsContainer />);
+    render(
+      <MemoryRouter>
+        <ResultsContainer />
+      </MemoryRouter>
+    );
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Test error for getAllUniversities')
-      ).toBeInTheDocument();
+      const errorMessage = screen.getByText(/Unexpected API Failure/i);
+      expect(errorMessage).toBeInTheDocument();
     });
-
-    consoleErrorSpy.mockRestore();
-  });
-
-  it('Should handle failure in searchUniversities', async () => {
-    global.localStorage.setItem('searchTerm', 'test search term');
-
-    const mockedError = new Error('SearchTerm Fetch Error');
-    mockedSearchUniversities.mockRejectedValueOnce(mockedError);
-
-    const consoleErrorSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
-
-    await act(async () => {
-      render(<ResultsContainer />);
-    });
-    expect(
-      screen.getByText(/No universities available to display/i)
-    ).toBeInTheDocument();
-    expect(screen.getByAltText('no-data')).toBeInTheDocument();
 
     consoleErrorSpy.mockRestore();
   });
