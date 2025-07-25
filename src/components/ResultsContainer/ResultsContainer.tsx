@@ -1,91 +1,123 @@
-import { Component } from 'react';
-import './ResultsContainer.scss';
+import React, { useEffect, useState } from 'react';
+import './ResultsContainer.css';
 import { searchUniversities } from '../../api/searchUniversities';
 import { getAllUniversities } from '../../api/getAllUniversities';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-type ResultsProps = object;
+const PAGE_SIZE = 15;
 
-interface ResultsState {
-  universities: University[];
-  loading: boolean;
-  error: string | null;
-}
+const ResultsContainer: React.FC = () => {
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-class ResultsContainer extends Component<ResultsProps, ResultsState> {
-  constructor(props: ResultsProps) {
-    super(props);
+  const [selectedUniversity, setSelectedUniversity] =
+    useState<University | null>(null);
 
-    this.state = {
-      universities: [],
-      loading: true,
-      error: null,
-    };
-  }
+  const [searchParams, setSearchParams] = useSearchParams();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigate = useNavigate();
 
-  async fetchUniversities(): Promise<void> {
+  const fetchUniversities = async () => {
     const searchTerm = localStorage.getItem('searchTerm') || '';
-
-    if (!searchTerm || searchTerm.trim() === '') {
-      try {
-        const universities = await getAllUniversities();
-        this.setState({ universities, loading: false });
-      } catch (error) {
-        this.setState({
-          error: `${error}` || 'Unknown error',
-          loading: false,
-        });
-        throw new Error(`${error}` || 'Error fetching universities');
-      }
-      return;
-    }
-
+    setLoading(true);
     try {
-      this.setState({ loading: true });
-      const universities = await searchUniversities(searchTerm);
-      this.setState({ universities, loading: false });
-    } catch (error) {
-      console.error('Error fetching universities:', error);
-      this.setState({
-        error: `${error}` || 'Unknown error',
-        loading: false,
-      });
+      if (!searchTerm || searchTerm.trim() === '') {
+        const fetchedUniversities = await getAllUniversities();
+        setUniversities(fetchedUniversities);
+      } else {
+        const searchedUniversities = await searchUniversities(searchTerm);
+        setUniversities(searchedUniversities);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching universities:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  async componentDidMount(): Promise<void> {
-    await this.fetchUniversities();
+  const handleSelectUniversity = (university: University) => {
+    setSelectedUniversity(university);
+    const id = university.domains[0];
+    setSearchParams({ ...Object.fromEntries(searchParams), details: id });
+  };
 
-    window.addEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
+  const handleCloseDetails = () => {
+    setSelectedUniversity(null);
+    const updatedParams = { ...Object.fromEntries(searchParams) };
+    delete updatedParams.details;
+    setSearchParams(updatedParams);
+  };
 
-  componentWillUnmount(): void {
-    window.removeEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
+  const paginatedUniversities = universities.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
-  renderUniversitiesList = (): JSX.Element[] => {
-    const { universities } = this.state;
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(universities.length / PAGE_SIZE)) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
 
-    if (!universities || universities.length === 0) {
-      return [
-        <div key="no-universities" className="error-container">
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  useEffect(() => {
+    const detailsId = searchParams.get('details');
+    if (detailsId) {
+      const foundUniversity = universities.find((uni) =>
+        uni.domains.includes(detailsId)
+      );
+      setSelectedUniversity(foundUniversity || null);
+    } else {
+      setSelectedUniversity(null);
+    }
+  }, [searchParams, universities]);
+
+  useEffect(() => {
+    fetchUniversities();
+    const handleSearchTermUpdate = async () => {
+      await fetchUniversities();
+    };
+    window.addEventListener('searchTermUpdated', handleSearchTermUpdate);
+    return () => {
+      window.removeEventListener('searchTermUpdated', handleSearchTermUpdate);
+    };
+  }, []);
+
+  const renderUniversitiesList = (): JSX.Element[] | JSX.Element => {
+    if (
+      !Array.isArray(paginatedUniversities) ||
+      paginatedUniversities.length === 0
+    ) {
+      return (
+        <div className="error-container">
           <img src={noData} alt="no-data" />
-          <p key="no-universities" className="error-message">
-            No universities available to display.
-          </p>
-        </div>,
-      ];
+          <p className="error-message">No universities available to display.</p>
+        </div>
+      );
     }
 
-    return universities.map((university: University) => (
-      <div key={university.domains[0]} className="university-card">
+    return paginatedUniversities.map((university: University) => (
+      <div
+        key={university.domains[0]}
+        className={`university-card ${
+          selectedUniversity?.domains[0] === university.domains[0]
+            ? 'selected'
+            : ''
+        }`}
+        onClick={() => handleSelectUniversity(university)}
+        style={{ cursor: 'pointer' }}
+      >
         <h3>{university.name}</h3>
         <p>
           <strong>Country:</strong> {university.country}
@@ -100,29 +132,76 @@ class ResultsContainer extends Component<ResultsProps, ResultsState> {
     ));
   };
 
-  render() {
-    const { loading, error } = this.state;
-
-    if (loading) {
-      return (
-        <div className="loader-container">
-          <p className="loader-message">Loading universities, please wait...</p>
-        </div>
-      );
-    }
-
+  if (loading) {
     return (
-      <ErrorBoundary>
-        <div className="results-container">
+      <div className="loader-container">
+        <p className="loader-message">Loading universities, please wait...</p>
+      </div>
+    );
+  }
+
+  return (
+    <ErrorBoundary>
+      <div className="results-container">
+        <div className="master-container">
           {error ? (
             <p className="error-message">{error}</p>
           ) : (
-            this.renderUniversitiesList()
+            renderUniversitiesList()
           )}
+          <div className="pagination-container">
+            <button
+              className="previous-button"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="pagination-info">
+              Page {currentPage} of {Math.ceil(universities.length / PAGE_SIZE)}
+            </span>
+            <button
+              className="next-button"
+              onClick={handleNextPage}
+              disabled={
+                currentPage >= Math.ceil(universities.length / PAGE_SIZE)
+              }
+            >
+              Next
+            </button>
+          </div>
         </div>
-      </ErrorBoundary>
-    );
-  }
-}
+        {selectedUniversity && (
+          <div className="details-container">
+            <button className="close-details" onClick={handleCloseDetails}>
+              Close Details
+            </button>
+            <h2>{selectedUniversity?.name}</h2>
+            <p>
+              <strong>Country:</strong> {selectedUniversity?.country}
+            </p>
+            <p>
+              <strong>Domains:</strong> {selectedUniversity?.domains.join(', ')}
+            </p>
+            <p>
+              <strong>State Province:</strong>{' '}
+              {selectedUniversity?.stateProvince || 'Not Available'}
+            </p>
+            <p>
+              <strong>Web Site:</strong>{' '}
+              <a
+                href={selectedUniversity?.web_pages[0]}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {selectedUniversity?.web_pages[0]}
+              </a>
+            </p>
+          </div>
+        )}
+      </div>
+    </ErrorBoundary>
+  );
+};
 
 export { ResultsContainer };

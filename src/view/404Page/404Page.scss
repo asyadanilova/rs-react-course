@@ -1,0 +1,25 @@
+.not-found-page {
+  text-align: center;
+  padding: 50px;
+}
+
+.not-found-page h1 {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.not-found-image {
+  max-width: 20%;
+}
+
+.not-found-page p {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.not-found-page .home-link {
+  text-decoration: none;
+  color: var(--background-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
