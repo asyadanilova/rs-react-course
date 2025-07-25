@@ -1,10 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { About } from './about';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('About Component', () => {
   it('renders the page header correctly', () => {
-    render(<About />);
+    render(
+      <MemoryRouter>
+        <About />
+      </MemoryRouter>
+    );
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'About'
@@ -12,7 +17,11 @@ describe('About Component', () => {
   });
 
   it('renders the list of team members with correct information', () => {
-    render(<About />);
+    render(
+      <MemoryRouter>
+        <About />
+      </MemoryRouter>
+    );
 
     const teamMember = screen.getByText(/Asya Danilova/i);
     expect(teamMember).toBeInTheDocument();
@@ -26,14 +35,17 @@ describe('About Component', () => {
     expect(teamMemberBio).toBeInTheDocument();
 
     const contributionItem = screen.getByText(
-      /Developed the catalog page with sorting and filtering using API query parameters/i
+      /Developed the catalog page with the possibility to search by country/i
     );
     expect(contributionItem).toBeInTheDocument();
   });
 
   it('renders the GitHub profile link correctly', () => {
-    render(<About />);
-
+    render(
+      <MemoryRouter>
+        <About />
+      </MemoryRouter>
+    );
     const githubLink = screen.getByRole('link', { name: /GitHub Profile/i });
     expect(githubLink).toBeInTheDocument();
 
@@ -47,7 +59,11 @@ describe('About Component', () => {
   });
 
   it('renders the team member images correctly', () => {
-    render(<About />);
+    render(
+      <MemoryRouter>
+        <About />
+      </MemoryRouter>
+    );
     const memberPhoto = screen.getByAltText("Asya Danilova's photo");
     expect(memberPhoto).toBeInTheDocument();
 
@@ -58,7 +74,11 @@ describe('About Component', () => {
   });
 
   it('renders contributions as a list', () => {
-    render(<About />);
+    render(
+      <MemoryRouter>
+        <About />
+      </MemoryRouter>
+    );
 
     const contributionsList = screen.getByRole('list');
     expect(contributionsList).toBeInTheDocument();

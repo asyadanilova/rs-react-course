@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import './about.css';
+import rsLogo from '../../assets/rss-logo.svg';
 
 const teamMembers = [
   {
@@ -9,9 +11,9 @@ const teamMembers = [
       'https://static.cdn.epam.com/uploads/6063a76d512075b73de2f360a19d6f5e/Asya.jpg',
     github: 'https://github.com/AsyaDanilova',
     contributions: [
-      'Developed the catalog page with sorting and filtering using API query parameters for a smoother user experience.',
-      'Created the About Us page, learning Bootstrap and enhancing my SCSS skills in the process.',
-      'Introduced sneakers as the shop’s niche and explored the technical possibilities of the Commerce Tools platform to implement it.',
+      'Developed the catalog page with the possibility to search by country.',
+      'Created the Not Found page, learning Bootstrap and enhancing my SCSS skills in the process.',
+      'Introduced universities as the site idea and found proper API for that.',
       'Built the very page you’re currently reading!',
     ],
   },
@@ -22,6 +24,9 @@ const About = (): JSX.Element => {
     <div className="about-us">
       <header className="page-header">
         <h1>About</h1>
+        <Link to={'https://rs.school/'}>
+          <img src={rsLogo} style={{ width: '50px' }} />
+        </Link>
       </header>
 
       <section className="team-members scroll-area">

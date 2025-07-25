@@ -5,6 +5,12 @@ import { getAllUniversities } from '../../api/getAllUniversities';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
+import {
+  basicMockUniversities,
+  paginatedMockUniversities,
+  singleMockUniversity,
+} from '../../test-utils/mocks/mockData';
+
 const mockedGetAllUniversities = getAllUniversities as Mock;
 
 vi.mock('../../api/getAllUniversities', () => {
@@ -48,25 +54,7 @@ describe('ResultsContainer', () => {
   });
 
   it('Should render universities if data is provided', async () => {
-    const mockUniversities: University[] = [
-      {
-        domains: ['harvard.edu'],
-        country: 'USA',
-        stateProvince: null,
-        name: 'Harvard University',
-        web_pages: ['https://www.harvard.edu'],
-        alpha_two_code: 'US',
-      },
-      {
-        domains: ['ox.ac.uk'],
-        country: 'United Kingdom',
-        stateProvince: null,
-        name: 'Oxford University',
-        web_pages: ['https://www.ox.ac.uk'],
-        alpha_two_code: 'UK',
-      },
-    ];
-    mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
+    mockedGetAllUniversities.mockResolvedValueOnce(basicMockUniversities);
 
     render(
       <MemoryRouter>
@@ -87,18 +75,7 @@ describe('ResultsContainer', () => {
   });
 
   it('Should paginate universities and display correct page', async () => {
-    const mockUniversities: University[] = Array.from(
-      { length: 30 },
-      (_, index) => ({
-        domains: [`domain${index}.com`],
-        country: `Country ${index}`,
-        name: `University ${index}`,
-        web_pages: [`https://www.domain${index}.com`],
-        stateProvince: null,
-        alpha_two_code: 'XX',
-      })
-    );
-    mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
+    mockedGetAllUniversities.mockResolvedValueOnce(paginatedMockUniversities);
 
     render(
       <MemoryRouter>
@@ -150,17 +127,7 @@ describe('ResultsContainer', () => {
   });
 
   it('Should update the URL when selecting a university for details', async () => {
-    const mockUniversities: University[] = [
-      {
-        domains: ['harvard.edu'],
-        country: 'USA',
-        stateProvince: null,
-        name: 'Harvard University',
-        web_pages: ['https://www.harvard.edu'],
-        alpha_two_code: 'US',
-      },
-    ];
-    mockedGetAllUniversities.mockResolvedValueOnce(mockUniversities);
+    mockedGetAllUniversities.mockResolvedValueOnce(singleMockUniversity);
 
     const history = createMemoryHistory();
 
