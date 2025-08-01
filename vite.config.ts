@@ -10,4 +10,13 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://react-app-danilovaasya.netlify.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

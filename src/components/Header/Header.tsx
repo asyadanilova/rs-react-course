@@ -1,6 +1,8 @@
 import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
 import { AppRoutes } from '../../routes/routes';
+import { useTheme } from '../../context/ThemeContext';
+import { BsSunFill, BsMoonFill } from 'react-icons/bs';
 
 const Header = () => {
   const navButtons = () => (
@@ -27,6 +29,7 @@ const Header = () => {
       </li>
     </ul>
   );
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="header">
@@ -38,7 +41,16 @@ const Header = () => {
         />
         <span className="header__app-name">GlobalCampus</span>
       </Link>
-      <nav>{navButtons()}</nav>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <nav>{navButtons()}</nav>
+        <div
+          className="toggle-theme"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
+          {theme === 'light' ? <BsSunFill /> : <BsMoonFill />}
+        </div>
+      </div>
     </header>
   );
 };

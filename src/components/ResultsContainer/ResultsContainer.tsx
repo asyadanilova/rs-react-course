@@ -6,9 +6,20 @@ import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../utils/consts';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectItem,
+  unselectItem,
+  unselectAll,
+} from '../../store/selectedItemsSlice';
+import type { RootState } from '../../store/store';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const ResultsContainer: React.FC = () => {
+  const selectedItems = useSelector(
+    (state: RootState) => state.selectedItems.items
+  );
+  const dispatch = useDispatch();
   const [universities, setUniversities] = useState<University[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +49,19 @@ const ResultsContainer: React.FC = () => {
       setLoading(false);
     }
   };
+
+  function downloadCSV(items: University[]) {
+    const csv = items
+      .map((item) => `${item.name},${item.country},${item.web_pages[0]}`)
+      .join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${items.length}_items.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   const handleSelectUniversity = (university: University) => {
     navigate(`/${currentPage}/${university.domains[0]}`);
@@ -91,25 +115,40 @@ const ResultsContainer: React.FC = () => {
       );
     }
 
-    return paginatedUniversities.map((university: University) => (
-      <div
-        key={university.domains[0]}
-        className="university-card"
-        onClick={() => handleSelectUniversity(university)}
-        style={{ cursor: 'pointer' }}
-      >
-        <h3>{university.name}</h3>
-        <p>
-          <strong>Country:</strong> {university.country}
-        </p>
-        <p>
-          <strong>Web Site:</strong>{' '}
-          <a href={university.web_pages[0]} target="_blank" rel="noreferrer">
-            {university.web_pages[0] || 'No Web Site'}
-          </a>
-        </p>
-      </div>
-    ));
+    return paginatedUniversities.map((university: University) => {
+      const isSelected = selectedItems.some(
+        (item: University) => item.domains[0] === university.domains[0]
+      );
+      return (
+        <div
+          key={university.domains[0]}
+          className="university-card"
+          style={{ cursor: 'pointer' }}
+        >
+          <input
+            type="checkbox"
+            className="select-checkbox"
+            checked={isSelected}
+            onChange={(e) => {
+              if (e.target.checked) dispatch(selectItem(university));
+              else dispatch(unselectItem(university.domains[0]));
+            }}
+          />
+          <h3 onClick={() => handleSelectUniversity(university)}>
+            {university.name}
+          </h3>
+          <p>
+            <strong>Country:</strong> {university.country}
+          </p>
+          <p>
+            <strong>Web Site:</strong>{' '}
+            <a href={university.web_pages[0]} target="_blank" rel="noreferrer">
+              {university.web_pages[0] || 'No Web Site'}
+            </a>
+          </p>
+        </div>
+      );
+    });
   };
 
   if (loading) {
@@ -159,6 +198,15 @@ const ResultsContainer: React.FC = () => {
             Next
           </button>
         </div>
+        {selectedItems.length > 0 && (
+          <div className="flyout">
+            <span>{selectedItems.length} items are selected</span>
+            <button onClick={() => dispatch(unselectAll())}>
+              Unselect all
+            </button>
+            <button onClick={() => downloadCSV(selectedItems)}>Download</button>
+          </div>
+        )}
       </div>
     </ErrorBoundary>
   );
