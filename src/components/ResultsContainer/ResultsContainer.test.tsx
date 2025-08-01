@@ -10,6 +10,8 @@ import {
   singleMockUniversity,
 } from '../../test-utils/mocks/mockData';
 import { getAllUniversities } from '../../api/getAllUniversities';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const mockedGetAllUniversities = getAllUniversities as Mock;
 
@@ -38,11 +40,13 @@ describe('ResultsContainer', () => {
 
   it('Should render loader initially', async () => {
     mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-    mockedGetAllUniversities.mockResolvedValueOnce([]);
+    mockedGetAllUniversities.mockResolvedValue([]);
 
     render(
       <MemoryRouter initialEntries={['/1']}>
-        <ResultsContainer />
+        <Provider store={store}>
+          <ResultsContainer />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -58,7 +62,9 @@ it('Should render universities if data is provided', async () => {
 
   render(
     <MemoryRouter initialEntries={['/1']}>
-      <ResultsContainer />
+      <Provider store={store}>
+        <ResultsContainer />
+      </Provider>
     </MemoryRouter>
   );
 
@@ -75,7 +81,9 @@ it('Should paginate universities and display correct page', async () => {
   const history = createMemoryHistory({ initialEntries: ['/1'] });
   render(
     <Router location={history.location} navigator={history}>
-      <ResultsContainer />
+      <Provider store={store}>
+        <ResultsContainer />
+      </Provider>
     </Router>
   );
 
@@ -104,7 +112,9 @@ it('Should render fallback when there is no data', async () => {
 
   render(
     <MemoryRouter initialEntries={['/1']}>
-      <ResultsContainer />
+      <Provider store={store}>
+        <ResultsContainer />
+      </Provider>
     </MemoryRouter>
   );
 
@@ -123,7 +133,9 @@ it('Should update the URL when selecting a university for details', async () => 
   const history = createMemoryHistory({ initialEntries: ['/1'] });
   render(
     <Router location={history.location} navigator={history}>
-      <ResultsContainer />
+      <Provider store={store}>
+        <ResultsContainer />
+      </Provider>
     </Router>
   );
 
@@ -146,7 +158,9 @@ it('Should handle errors gracefully', async () => {
   const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   render(
     <MemoryRouter initialEntries={['/1']}>
-      <ResultsContainer />
+      <Provider store={store}>
+        <ResultsContainer />
+      </Provider>
     </MemoryRouter>
   );
 
@@ -157,4 +171,62 @@ it('Should handle errors gracefully', async () => {
   });
 
   consoleSpy.mockRestore();
+});
+
+it('should allow selecting and unselecting a university', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
+
+  render(
+    <Provider store={store}>
+      <MemoryRouter initialEntries={['/1']}>
+        <ResultsContainer />
+      </MemoryRouter>
+    </Provider>
+  );
+
+  await waitFor(() => {
+    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
+  });
+
+  const checkbox = screen.getAllByRole('checkbox')[0];
+  expect(checkbox).not.toBeChecked();
+
+  await act(async () => {
+    checkbox.click();
+  });
+  expect(checkbox).toBeChecked();
+
+  await act(async () => {
+    checkbox.click();
+  });
+  expect(checkbox).not.toBeChecked();
+});
+
+it('shows flyout when at least one item is selected', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
+
+  render(
+    <Provider store={store}>
+      <MemoryRouter initialEntries={['/1']}>
+        <ResultsContainer />
+      </MemoryRouter>
+    </Provider>
+  );
+
+  await waitFor(() => {
+    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
+  });
+
+  const checkbox = screen.getAllByRole('checkbox')[0];
+  await act(async () => {
+    checkbox.click();
+  });
+
+  expect(screen.getByText(/items are selected/i)).toBeInTheDocument();
+  expect(
+    screen.getByRole('button', { name: /Unselect all/i })
+  ).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /Download/i })).toBeInTheDocument();
 });
