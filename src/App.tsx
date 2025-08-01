@@ -1,10 +1,10 @@
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
-import { MainContainer } from './components/MainContainer/MainContainer';
 import './components/ErrorBoundary/ErrorBoundary.scss';
+import MainRouter from './routes/MainRouter';
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <ErrorBoundary
@@ -23,11 +23,11 @@ function App() {
         }
       >
         <Header />
-        <MainContainer />
+        <MainRouter />
         <Footer />
       </ErrorBoundary>
     </>
   );
-}
+};
 
 export default App;

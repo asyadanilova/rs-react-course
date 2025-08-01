@@ -1,52 +1,39 @@
-import { Component } from 'react';
 import './SearchContainer.scss';
 import { ErrorButton } from '../ErrorButton/ErrorButton';
 
-class SearchContainer extends Component {
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+const SearchContainer = () => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value.toLowerCase().trim();
     localStorage.setItem('searchTerm', searchTerm);
   };
 
-  handleSearch = (): void => {
+  const handleSearch = () => {
     window.dispatchEvent(new Event('searchTermUpdated'));
   };
 
-  searchInput(): JSX.Element {
-    return (
-      <>
-        <input
-          type="text"
-          defaultValue={localStorage.getItem('searchTerm') || ''}
-          onChange={this.handleInputChange}
-          placeholder="Enter your request..."
-          className="search-input"
-        />
-      </>
-    );
-  }
+  const searchInput = () => (
+    <input
+      type="text"
+      defaultValue={localStorage.getItem('searchTerm') || ''}
+      onChange={handleInputChange}
+      placeholder="Enter your request..."
+      className="search-input"
+    />
+  );
 
-  searchButton(): JSX.Element {
-    return (
-      <>
-        <button className="button" onClick={this.handleSearch}>
-          Search <i className="bi bi-search"></i>
-        </button>
-      </>
-    );
-  }
+  const searchButton = () => (
+    <button className="button" onClick={handleSearch}>
+      Search <i className="bi bi-search"></i>
+    </button>
+  );
 
-  render(): JSX.Element {
-    return (
-      <>
-        <div className="search">
-          <div className="search__input">{this.searchInput()}</div>
-          <div className="search__button">{this.searchButton()}</div>
-          <ErrorButton />
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <div className="search">
+      <div className="search__input">{searchInput()}</div>
+      <div className="search__button">{searchButton()}</div>
+      <ErrorButton />
+    </div>
+  );
+};
 
 export { SearchContainer };

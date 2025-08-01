@@ -1,91 +1,103 @@
-import { Component } from 'react';
-import './ResultsContainer.scss';
+import React, { useEffect, useState } from 'react';
+import './ResultsContainer.css';
 import { searchUniversities } from '../../api/searchUniversities';
 import { getAllUniversities } from '../../api/getAllUniversities';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { ITEM_PER_PAGE } from '../../utils/consts';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-type ResultsProps = object;
+const ResultsContainer: React.FC = () => {
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm] = useLocalStorage('searchTerm', '');
+  const navigate = useNavigate();
+  const { page, id } = useParams<{ page: string; id?: string }>();
+  const currentPage = parseInt(page || '1', 10) || 1;
 
-interface ResultsState {
-  universities: University[];
-  loading: boolean;
-  error: string | null;
-}
-
-class ResultsContainer extends Component<ResultsProps, ResultsState> {
-  constructor(props: ResultsProps) {
-    super(props);
-
-    this.state = {
-      universities: [],
-      loading: true,
-      error: null,
-    };
-  }
-
-  async fetchUniversities(): Promise<void> {
+  const fetchUniversities = async () => {
     const searchTerm = localStorage.getItem('searchTerm') || '';
-
-    if (!searchTerm || searchTerm.trim() === '') {
-      try {
-        const universities = await getAllUniversities();
-        this.setState({ universities, loading: false });
-      } catch (error) {
-        this.setState({
-          error: `${error}` || 'Unknown error',
-          loading: false,
-        });
-        throw new Error(`${error}` || 'Error fetching universities');
-      }
-      return;
-    }
-
+    setLoading(true);
     try {
-      this.setState({ loading: true });
-      const universities = await searchUniversities(searchTerm);
-      this.setState({ universities, loading: false });
-    } catch (error) {
-      console.error('Error fetching universities:', error);
-      this.setState({
-        error: `${error}` || 'Unknown error',
-        loading: false,
-      });
+      if (!searchTerm.trim()) {
+        const fetchedUniversities = await getAllUniversities();
+        setUniversities(fetchedUniversities);
+      } else {
+        const searchedUniversities = await searchUniversities(
+          searchTerm.trim()
+        );
+        setUniversities(searchedUniversities);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching universities:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  async componentDidMount(): Promise<void> {
-    await this.fetchUniversities();
+  const handleSelectUniversity = (university: University) => {
+    navigate(`/${currentPage}/${university.domains[0]}`);
+  };
 
-    window.addEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
+  const handleCloseDetailsPage = () => {
+    navigate(`/${currentPage}`);
+  };
 
-  componentWillUnmount(): void {
-    window.removeEventListener(
-      'searchTermUpdated',
-      this.fetchUniversities.bind(this)
-    );
-  }
+  const paginatedUniversities = universities.slice(
+    (currentPage - 1) * ITEM_PER_PAGE,
+    currentPage * ITEM_PER_PAGE
+  );
 
-  renderUniversitiesList = (): JSX.Element[] => {
-    const { universities } = this.state;
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(universities.length / ITEM_PER_PAGE)) {
+      navigate(`/${currentPage + 1}`);
+    }
+  };
 
-    if (!universities || universities.length === 0) {
-      return [
-        <div key="no-universities" className="error-container">
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      navigate(`/${currentPage - 1}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchUniversities();
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const handleSearchTermUpdate = async () => {
+      await fetchUniversities();
+    };
+    window.addEventListener('searchTermUpdated', handleSearchTermUpdate);
+    return () => {
+      window.removeEventListener('searchTermUpdated', handleSearchTermUpdate);
+    };
+  }, []);
+
+  const renderUniversitiesList = (): JSX.Element[] | JSX.Element => {
+    if (
+      !Array.isArray(paginatedUniversities) ||
+      paginatedUniversities.length === 0
+    ) {
+      return (
+        <div className="error-container">
           <img src={noData} alt="no-data" />
-          <p key="no-universities" className="error-message">
-            No universities available to display.
-          </p>
-        </div>,
-      ];
+          <p className="error-message">No universities available to display.</p>
+        </div>
+      );
     }
 
-    return universities.map((university: University) => (
-      <div key={university.domains[0]} className="university-card">
+    return paginatedUniversities.map((university: University) => (
+      <div
+        key={university.domains[0]}
+        className="university-card"
+        onClick={() => handleSelectUniversity(university)}
+        style={{ cursor: 'pointer' }}
+      >
         <h3>{university.name}</h3>
         <p>
           <strong>Country:</strong> {university.country}
@@ -100,29 +112,56 @@ class ResultsContainer extends Component<ResultsProps, ResultsState> {
     ));
   };
 
-  render() {
-    const { loading, error } = this.state;
-
-    if (loading) {
-      return (
-        <div className="loader-container">
-          <p className="loader-message">Loading universities, please wait...</p>
-        </div>
-      );
-    }
-
+  if (loading) {
     return (
-      <ErrorBoundary>
-        <div className="results-container">
-          {error ? (
-            <p className="error-message">{error}</p>
-          ) : (
-            this.renderUniversitiesList()
-          )}
-        </div>
-      </ErrorBoundary>
+      <div className="loader-container">
+        <p className="loader-message">Loading universities, please wait...</p>
+      </div>
     );
   }
-}
+
+  return (
+    <ErrorBoundary>
+      <div className="results-container">
+        <div className="before-pagination">
+          <div className="master-container">
+            {error ? (
+              <p className="error-message">{error}</p>
+            ) : (
+              renderUniversitiesList()
+            )}
+          </div>
+          {id && universities.length > 0 && (
+            <div className="details-panel">
+              <Outlet context={{ universities, handleCloseDetailsPage }} />
+            </div>
+          )}
+        </div>
+        <div className="pagination-container">
+          <button
+            className="previous-button"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className="pagination-info">
+            Page {currentPage} of{' '}
+            {Math.ceil(universities.length / ITEM_PER_PAGE)}
+          </span>
+          <button
+            className="next-button"
+            onClick={handleNextPage}
+            disabled={
+              currentPage >= Math.ceil(universities.length / ITEM_PER_PAGE)
+            }
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </ErrorBoundary>
+  );
+};
 
 export { ResultsContainer };

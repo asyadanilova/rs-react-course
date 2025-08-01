@@ -2,6 +2,8 @@ import { describe, it, expect, vi, afterEach, Mock } from 'vitest';
 import { searchUniversities } from './searchUniversities';
 import { makeApiRequest } from './makeApiRequest';
 
+import { basicMockUniversities } from '../test-utils/mocks/mockData';
+
 vi.mock('./makeApiRequest', () => ({
   makeApiRequest: vi.fn(),
 }));
@@ -14,31 +16,13 @@ describe('searchUniversities', () => {
   });
 
   it('should call makeApiRequest with the correct endpoint and return data on success', async () => {
-    const mockUniversities: University[] = [
-      {
-        name: 'Harvard University',
-        country: 'USA',
-        stateProvince: null,
-        domains: ['harvard.edu'],
-        web_pages: ['https://www.harvard.edu'],
-        alpha_two_code: 'US',
-      },
-      {
-        name: 'Oxford University',
-        country: 'United Kingdom',
-        stateProvince: null,
-        domains: ['ox.ac.uk'],
-        web_pages: ['https://www.ox.ac.uk'],
-        alpha_two_code: 'UK',
-      },
-    ];
-    mockedMakeApiRequest.mockResolvedValueOnce(mockUniversities);
+    mockedMakeApiRequest.mockResolvedValueOnce(basicMockUniversities);
 
     const country = 'USA';
     const result = await searchUniversities(country);
 
     expect(makeApiRequest).toHaveBeenCalledWith('/search?&country=USA');
-    expect(result).toEqual(mockUniversities);
+    expect(result).toEqual(basicMockUniversities);
   });
 
   it('should log an error and throw when makeApiRequest throws an error', async () => {
