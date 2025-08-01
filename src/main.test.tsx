@@ -32,7 +32,7 @@ describe('main.tsx', () => {
     rootElement.id = 'root';
     document.body.appendChild(rootElement);
 
-    await import('./main');
+    await import('./Main');
 
     const createRootMock = vi.mocked(createRoot);
     expect(createRootMock).toHaveBeenCalledWith(rootElement);

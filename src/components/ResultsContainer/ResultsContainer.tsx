@@ -4,32 +4,30 @@ import { searchUniversities } from '../../api/searchUniversities';
 import { getAllUniversities } from '../../api/getAllUniversities';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-
-const PAGE_SIZE = 15;
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { ITEM_PER_PAGE } from '../../utils/consts';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const ResultsContainer: React.FC = () => {
   const [universities, setUniversities] = useState<University[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const [selectedUniversity, setSelectedUniversity] =
-    useState<University | null>(null);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchTerm] = useLocalStorage('searchTerm', '');
   const navigate = useNavigate();
+  const { page, id } = useParams<{ page: string; id?: string }>();
+  const currentPage = parseInt(page || '1', 10) || 1;
 
   const fetchUniversities = async () => {
     const searchTerm = localStorage.getItem('searchTerm') || '';
     setLoading(true);
     try {
-      if (!searchTerm || searchTerm.trim() === '') {
+      if (!searchTerm.trim()) {
         const fetchedUniversities = await getAllUniversities();
         setUniversities(fetchedUniversities);
       } else {
-        const searchedUniversities = await searchUniversities(searchTerm);
+        const searchedUniversities = await searchUniversities(
+          searchTerm.trim()
+        );
         setUniversities(searchedUniversities);
       }
       setError(null);
@@ -42,49 +40,35 @@ const ResultsContainer: React.FC = () => {
   };
 
   const handleSelectUniversity = (university: University) => {
-    setSelectedUniversity(university);
-    const id = university.domains[0];
-    setSearchParams({ ...Object.fromEntries(searchParams), details: id });
+    navigate(`/${currentPage}/${university.domains[0]}`);
   };
 
-  const handleCloseDetails = () => {
-    setSelectedUniversity(null);
-    const updatedParams = { ...Object.fromEntries(searchParams) };
-    delete updatedParams.details;
-    setSearchParams(updatedParams);
+  const handleCloseDetailsPage = () => {
+    navigate(`/${currentPage}`);
   };
 
   const paginatedUniversities = universities.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
+    (currentPage - 1) * ITEM_PER_PAGE,
+    currentPage * ITEM_PER_PAGE
   );
 
   const handleNextPage = () => {
-    if (currentPage < Math.ceil(universities.length / PAGE_SIZE)) {
-      setCurrentPage((prevPage) => prevPage + 1);
+    if (currentPage < Math.ceil(universities.length / ITEM_PER_PAGE)) {
+      navigate(`/${currentPage + 1}`);
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
+      navigate(`/${currentPage - 1}`);
     }
   };
 
   useEffect(() => {
-    const detailsId = searchParams.get('details');
-    if (detailsId) {
-      const foundUniversity = universities.find((uni) =>
-        uni.domains.includes(detailsId)
-      );
-      setSelectedUniversity(foundUniversity || null);
-    } else {
-      setSelectedUniversity(null);
-    }
-  }, [searchParams, universities]);
+    fetchUniversities();
+  }, [searchTerm]);
 
   useEffect(() => {
-    fetchUniversities();
     const handleSearchTermUpdate = async () => {
       await fetchUniversities();
     };
@@ -110,11 +94,7 @@ const ResultsContainer: React.FC = () => {
     return paginatedUniversities.map((university: University) => (
       <div
         key={university.domains[0]}
-        className={`university-card ${
-          selectedUniversity?.domains[0] === university.domains[0]
-            ? 'selected'
-            : ''
-        }`}
+        className="university-card"
         onClick={() => handleSelectUniversity(university)}
         style={{ cursor: 'pointer' }}
       >
@@ -143,62 +123,42 @@ const ResultsContainer: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className="results-container">
-        <div className="master-container">
-          {error ? (
-            <p className="error-message">{error}</p>
-          ) : (
-            renderUniversitiesList()
+        <div className="before-pagination">
+          <div className="master-container">
+            {error ? (
+              <p className="error-message">{error}</p>
+            ) : (
+              renderUniversitiesList()
+            )}
+          </div>
+          {id && universities.length > 0 && (
+            <div className="details-panel">
+              <Outlet context={{ universities, handleCloseDetailsPage }} />
+            </div>
           )}
-          <div className="pagination-container">
-            <button
-              className="previous-button"
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span className="pagination-info">
-              Page {currentPage} of {Math.ceil(universities.length / PAGE_SIZE)}
-            </span>
-            <button
-              className="next-button"
-              onClick={handleNextPage}
-              disabled={
-                currentPage >= Math.ceil(universities.length / PAGE_SIZE)
-              }
-            >
-              Next
-            </button>
-          </div>
         </div>
-        {selectedUniversity && (
-          <div className="details-container">
-            <button className="close-details" onClick={handleCloseDetails}>
-              Close Details
-            </button>
-            <h2>{selectedUniversity?.name}</h2>
-            <p>
-              <strong>Country:</strong> {selectedUniversity?.country}
-            </p>
-            <p>
-              <strong>Domains:</strong> {selectedUniversity?.domains.join(', ')}
-            </p>
-            <p>
-              <strong>State Province:</strong>{' '}
-              {selectedUniversity?.stateProvince || 'Not Available'}
-            </p>
-            <p>
-              <strong>Web Site:</strong>{' '}
-              <a
-                href={selectedUniversity?.web_pages[0]}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {selectedUniversity?.web_pages[0]}
-              </a>
-            </p>
-          </div>
-        )}
+        <div className="pagination-container">
+          <button
+            className="previous-button"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className="pagination-info">
+            Page {currentPage} of{' '}
+            {Math.ceil(universities.length / ITEM_PER_PAGE)}
+          </span>
+          <button
+            className="next-button"
+            onClick={handleNextPage}
+            disabled={
+              currentPage >= Math.ceil(universities.length / ITEM_PER_PAGE)
+            }
+          >
+            Next
+          </button>
+        </div>
       </div>
     </ErrorBoundary>
   );

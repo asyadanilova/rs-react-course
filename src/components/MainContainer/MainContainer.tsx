@@ -1,9 +1,12 @@
 import { SearchContainer } from '../SearchContainer/SearchContainer';
-import { ResultsContainer } from '../ResultsContainer/ResultsContainer';
 import './MainContainer.scss';
 import graduation from '../../assets/graduation.png';
+import { Outlet } from 'react-router-dom';
+import { useState } from 'react';
 
 const MainContainer = () => {
+  const [selectedUniversity] = useState<University | null>(null);
+
   return (
     <>
       <div className="main-container">
@@ -15,7 +18,7 @@ const MainContainer = () => {
         <img src={graduation} alt="graduation" />{' '}
       </div>
       <SearchContainer />
-      <ResultsContainer />
+      <Outlet context={{ selectedUniversity }} />
     </>
   );
 };

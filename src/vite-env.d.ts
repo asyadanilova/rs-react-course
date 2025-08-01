@@ -8,3 +8,8 @@ interface University {
   web_pages: string[];
   alpha_two_code: string;
 }
+
+interface OutletContext {
+  universities: University[];
+  handleCloseDetailsPage: () => void;
+}

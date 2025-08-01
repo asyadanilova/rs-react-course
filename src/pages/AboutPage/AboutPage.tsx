@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './about.css';
+import './AboutPage.css';
 import rsLogo from '../../assets/rss-logo.svg';
 
 const teamMembers = [

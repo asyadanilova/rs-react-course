@@ -1,26 +1,27 @@
 import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
+import { AppRoutes } from '../../routes/routes';
 
 const Header = () => {
   const navButtons = () => (
     <ul className="nav_button">
       <li>
-        <NavLink to="/" className="nav-link">
+        <NavLink to={AppRoutes.HOME_ROUTE} className="nav-link">
           <i className="bi bi-house"></i> Home
         </NavLink>
       </li>
       <li>
-        <NavLink to="/about" className="nav-link">
+        <NavLink to={AppRoutes.ABOUT_ROUTE} className="nav-link">
           <i className="bi bi-info-circle"></i> About
         </NavLink>
       </li>
       <li>
-        <NavLink to="/login" className="nav-link">
+        <NavLink to={AppRoutes.LOGIN_ROUTE} className="nav-link">
           <i className="bi bi-box-arrow-in-right"></i> Login
         </NavLink>
       </li>
       <li>
-        <NavLink to="/registration" className="nav-link">
+        <NavLink to={AppRoutes.REGISTRATION_ROUTE} className="nav-link">
           <i className="bi bi-door-open"></i> Registration
         </NavLink>
       </li>
@@ -29,7 +30,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <Link to="/" className="header__logo-link">
+      <Link to="/main" className="header__logo-link">
         <img
           src="./graduation-cap.png"
           alt="Site Icon"

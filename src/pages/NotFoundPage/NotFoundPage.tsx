@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './404Page.scss';
+import './NotFoundPage.scss';
 import noPage from '../../assets/404-page.png';
 
 const NotFoundPage: React.FC = () => {

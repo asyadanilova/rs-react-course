@@ -1,15 +1,15 @@
 import { describe, it, expect, vi, afterEach, Mock } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { ResultsContainer } from './ResultsContainer';
-import { getAllUniversities } from '../../api/getAllUniversities';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-
+import * as useLocalStorageModule from '../../hooks/useLocalStorage';
 import {
   basicMockUniversities,
   paginatedMockUniversities,
   singleMockUniversity,
 } from '../../test-utils/mocks/mockData';
+import { getAllUniversities } from '../../api/getAllUniversities';
 
 const mockedGetAllUniversities = getAllUniversities as Mock;
 
@@ -26,6 +26,10 @@ vi.mock('../../api/searchUniversities', async (importOriginal) => {
     searchUniversities: vi.fn(() => Promise.resolve([])),
   };
 });
+const mockedUseLocalStorage = vi.spyOn(
+  useLocalStorageModule,
+  'useLocalStorage'
+);
 
 describe('ResultsContainer', () => {
   afterEach(() => {
@@ -33,142 +37,124 @@ describe('ResultsContainer', () => {
   });
 
   it('Should render loader initially', async () => {
-    const mockPromise = new Promise<University[]>(() => []);
-    mockedGetAllUniversities.mockReturnValueOnce(mockPromise);
-
-    render(
-      <MemoryRouter>
-        <ResultsContainer />
-      </MemoryRouter>
-    );
-
-    const loader = screen.getByText((content, element) => {
-      return (
-        element?.tagName.toLowerCase() === 'p' &&
-        content.includes('Loading universities, please wait...')
-      );
-    });
-
-    expect(loader).toBeInTheDocument();
-    mockPromise.catch(() => {});
-  });
-
-  it('Should render universities if data is provided', async () => {
-    mockedGetAllUniversities.mockResolvedValueOnce(basicMockUniversities);
-
-    render(
-      <MemoryRouter>
-        <ResultsContainer />
-      </MemoryRouter>
-    );
-
-    await waitFor(() => {
-      const harvard = screen.getByText((content) =>
-        content.includes('Harvard University')
-      );
-      expect(harvard).toBeInTheDocument();
-      const oxford = screen.getByText((content) =>
-        content.includes('Oxford University')
-      );
-      expect(oxford).toBeInTheDocument();
-    });
-  });
-
-  it('Should paginate universities and display correct page', async () => {
-    mockedGetAllUniversities.mockResolvedValueOnce(paginatedMockUniversities);
-
-    render(
-      <MemoryRouter>
-        <ResultsContainer />
-      </MemoryRouter>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText(/Page 1 of 2/i)).toBeInTheDocument();
-      const firstUniversity = screen.getByText(/University 0/i);
-      const lastUniversityOnPage1 = screen.getByText(/University 14/i);
-      expect(firstUniversity).toBeInTheDocument();
-      expect(lastUniversityOnPage1).toBeInTheDocument();
-    });
-
-    const nextButton = screen.getByText(/Next/i);
-    await act(async () => {
-      nextButton.click();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(/Page 2 of 2/i)).toBeInTheDocument();
-
-      const firstUniversityOnPage2 = screen.getByText(/University 15/i);
-      const lastUniversityOnPage2 = screen.getByText(/University 29/i);
-      expect(firstUniversityOnPage2).toBeInTheDocument();
-      expect(lastUniversityOnPage2).toBeInTheDocument();
-    });
-  });
-
-  it('Should render fallback when there is no data', async () => {
+    mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
     mockedGetAllUniversities.mockResolvedValueOnce([]);
 
     render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/1']}>
         <ResultsContainer />
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      const noDataMessage = screen.getByText(
-        /No universities available to display/i
-      );
-      expect(noDataMessage).toBeInTheDocument();
-    });
-
-    const noDataImage = screen.getByAltText('no-data');
-    expect(noDataImage).toBeInTheDocument();
+    expect(
+      screen.getByText(/Loading universities, please wait/i)
+    ).toBeInTheDocument();
   });
+});
 
-  it('Should update the URL when selecting a university for details', async () => {
-    mockedGetAllUniversities.mockResolvedValueOnce(singleMockUniversity);
+it('Should render universities if data is provided', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
 
-    const history = createMemoryHistory();
+  render(
+    <MemoryRouter initialEntries={['/1']}>
+      <ResultsContainer />
+    </MemoryRouter>
+  );
 
-    render(
-      <Router location={history.location} navigator={history}>
-        <ResultsContainer />
-      </Router>
+  await waitFor(() => {
+    const headings = screen.getAllByRole('heading', { level: 3 });
+    expect(headings[0]).toHaveTextContent(/Harvard University/i);
+  });
+});
+
+it('Should paginate universities and display correct page', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue(paginatedMockUniversities);
+
+  const history = createMemoryHistory({ initialEntries: ['/1'] });
+  render(
+    <Router location={history.location} navigator={history}>
+      <ResultsContainer />
+    </Router>
+  );
+
+  await waitFor(() => {
+    const headings = screen.getAllByRole('heading', { level: 3 });
+    expect(headings.length).toBeGreaterThan(0);
+    headings.forEach((h, index) =>
+      expect(h).toHaveTextContent(`University ${index}`)
     );
-
-    await waitFor(() => {
-      const harvard = screen.getByText(/Harvard University/i);
-      expect(harvard).toBeInTheDocument();
-    });
-
-    const harvardCard = screen.getByText(/Harvard University/i);
-    await act(async () => {
-      harvardCard.click();
-    });
-
-    expect(history.location.search).toContain('details=harvard.edu');
+    expect(
+      screen.getByText((content) => content.includes('Page'))
+    ).toHaveTextContent('Page 1 of 2');
   });
 
-  it('Should handle errors gracefully', async () => {
-    const mockedError = new Error('Unexpected API Failure');
-    mockedGetAllUniversities.mockRejectedValueOnce(mockedError);
-
-    const consoleErrorSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
-
-    render(
-      <MemoryRouter>
-        <ResultsContainer />
-      </MemoryRouter>
-    );
-
-    await waitFor(() => {
-      const errorMessage = screen.getByText(/Unexpected API Failure/i);
-      expect(errorMessage).toBeInTheDocument();
-    });
-
-    consoleErrorSpy.mockRestore();
+  const nextButton = screen.getByRole('button', { name: /next/i });
+  await act(async () => {
+    nextButton.click();
   });
+
+  expect(history.location.pathname).toBe('/2');
+});
+
+it('Should render fallback when there is no data', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue([]);
+
+  render(
+    <MemoryRouter initialEntries={['/1']}>
+      <ResultsContainer />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByText(/No universities available to display/i)
+    ).toBeInTheDocument();
+    expect(screen.getByAltText(/no-data/i)).toBeInTheDocument();
+  });
+});
+
+it('Should update the URL when selecting a university for details', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  mockedGetAllUniversities.mockResolvedValue(singleMockUniversity);
+
+  const history = createMemoryHistory({ initialEntries: ['/1'] });
+  render(
+    <Router location={history.location} navigator={history}>
+      <ResultsContainer />
+    </Router>
+  );
+
+  await waitFor(() => {
+    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
+  });
+
+  await act(async () => {
+    screen.getByText(/Harvard University/i).click();
+  });
+
+  expect(history.location.pathname).toBe('/1/harvard.edu');
+});
+
+it('Should handle errors gracefully', async () => {
+  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
+  const error = new Error('API Error');
+  mockedGetAllUniversities.mockRejectedValue(error);
+
+  const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  render(
+    <MemoryRouter initialEntries={['/1']}>
+      <ResultsContainer />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByText((content) => content.includes('API Error'))
+    ).toBeInTheDocument();
+  });
+
+  consoleSpy.mockRestore();
 });
