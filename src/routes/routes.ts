@@ -1,5 +1,5 @@
 export enum AppRoutes {
-  HOME_ROUTE = '/main',
+  HOME_ROUTE = '/',
   ABOUT_ROUTE = '/about',
   ERROR_ROUTE = '*',
   LOGIN_ROUTE = '/login',

@@ -24,24 +24,6 @@ describe('SearchContainer Component', () => {
     expect(button).toHaveClass('button');
   });
 
-  it('renders the ErrorButton component', () => {
-    render(<SearchContainer />);
-
-    const errorButton = screen.getByRole('button', { name: /error button/i });
-    expect(errorButton).toBeInTheDocument();
-  });
-
-  it('updates localStorage when typing into the input', () => {
-    render(<SearchContainer />);
-    const input = screen.getByPlaceholderText(
-      'Enter your request...'
-    ) as HTMLInputElement;
-
-    fireEvent.change(input, { target: { value: 'Harvard' } });
-
-    expect(localStorage.getItem('searchTerm')).toBe('harvard');
-  });
-
   it('dispatches the searchTermUpdated event when search button is clicked', () => {
     const dispatchEventSpy = vi.spyOn(window, 'dispatchEvent');
 
@@ -63,5 +45,70 @@ describe('SearchContainer Component', () => {
     ) as HTMLInputElement;
 
     expect(input.value).toBe('oxford');
+  });
+
+  it('updates input value when user types', () => {
+    render(<SearchContainer />);
+    const input = screen.getByPlaceholderText(
+      'Enter your request...'
+    ) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'harvard' } });
+
+    expect(input.value).toBe('harvard');
+  });
+
+  it('saves normalized search term to localStorage when search button is clicked', () => {
+    render(<SearchContainer />);
+    const input = screen.getByPlaceholderText(
+      'Enter your request...'
+    ) as HTMLInputElement;
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: '  UNITED STATES  ' } });
+    fireEvent.click(button);
+
+    expect(localStorage.getItem('searchTerm')).toBe('united states');
+  });
+
+  it('preserves localStorage value after search when component re-renders', () => {
+    const { rerender } = render(<SearchContainer />);
+    const input = screen.getByPlaceholderText(
+      'Enter your request...'
+    ) as HTMLInputElement;
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: 'germany' } });
+    fireEvent.click(button);
+
+    rerender(<SearchContainer />);
+
+    const newInput = screen.getByPlaceholderText(
+      'Enter your request...'
+    ) as HTMLInputElement;
+    expect(newInput.value).toBe('germany');
+    expect(localStorage.getItem('searchTerm')).toBe('germany');
+  });
+
+  it('handles empty search term correctly', () => {
+    render(<SearchContainer />);
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.click(button);
+
+    expect(localStorage.getItem('searchTerm')).toBe('');
+  });
+
+  it('trims whitespace from search term before saving', () => {
+    render(<SearchContainer />);
+    const input = screen.getByPlaceholderText(
+      'Enter your request...'
+    ) as HTMLInputElement;
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: '   france   ' } });
+    fireEvent.click(button);
+
+    expect(localStorage.getItem('searchTerm')).toBe('france');
   });
 });

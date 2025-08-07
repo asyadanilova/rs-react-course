@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider, useTheme } from './ThemeContext';
+import { ThemeProvider } from './ThemeContext';
+import { useTheme } from '../hooks/useTheme';
 
 const TestComponent: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -9,6 +10,19 @@ const TestComponent: React.FC = () => {
     <div>
       <span data-testid="theme">{theme}</span>
       <button onClick={toggleTheme}>Toggle</button>
+    </div>
+  );
+};
+
+const ThemeConsumer: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <div>
+      <p data-testid="current-theme">Current theme: {theme}</p>
+      <button data-testid="toggle-theme" onClick={toggleTheme}>
+        Toggle Theme
+      </button>
     </div>
   );
 };
@@ -37,15 +51,15 @@ describe('ThemeContext', () => {
     expect(themeSpan).toHaveTextContent('light');
   });
 
-  it('throws error if useTheme is used outside ThemeProvider', () => {
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    const BrokenComponent = () => {
-      useTheme();
-      return <div />;
-    };
-    expect(() => render(<BrokenComponent />)).toThrow(
-      /useTheme must be used within ThemeProvider/
+  it('provides correct theme value to children', () => {
+    render(
+      <ThemeProvider>
+        <ThemeConsumer />
+      </ThemeProvider>
     );
-    errorSpy.mockRestore();
+
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(
+      'Current theme: light'
+    );
   });
 });

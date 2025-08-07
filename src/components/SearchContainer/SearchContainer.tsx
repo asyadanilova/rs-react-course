@@ -1,37 +1,37 @@
+import React from 'react';
 import './SearchContainer.scss';
-import { ErrorButton } from '../ErrorButton/ErrorButton';
 
 const SearchContainer = () => {
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('searchTerm') || ''
+  );
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.toLowerCase().trim();
-    localStorage.setItem('searchTerm', searchTerm);
+    setSearchTerm(event.target.value);
   };
 
   const handleSearch = () => {
+    const normalized = searchTerm.toLowerCase().trim();
+    localStorage.setItem('searchTerm', normalized);
     window.dispatchEvent(new Event('searchTermUpdated'));
   };
 
-  const searchInput = () => (
-    <input
-      type="text"
-      defaultValue={localStorage.getItem('searchTerm') || ''}
-      onChange={handleInputChange}
-      placeholder="Enter your request..."
-      className="search-input"
-    />
-  );
-
-  const searchButton = () => (
-    <button className="button" onClick={handleSearch}>
-      Search <i className="bi bi-search"></i>
-    </button>
-  );
-
   return (
     <div className="search">
-      <div className="search__input">{searchInput()}</div>
-      <div className="search__button">{searchButton()}</div>
-      <ErrorButton />
+      <div className="search__input">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder="Enter your request..."
+          className="search-input"
+        />
+      </div>
+      <div className="search__button">
+        <button className="button" onClick={handleSearch}>
+          Search <i className="bi bi-search"></i>
+        </button>
+      </div>
     </div>
   );
 };

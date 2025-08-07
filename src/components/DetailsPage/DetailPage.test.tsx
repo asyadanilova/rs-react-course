@@ -55,9 +55,9 @@ describe('DetailsPage', () => {
     });
   });
 
-  it('Should display fallback if no university is found for the given id', async () => {
+  it('Should display fallback if universities is null', async () => {
     vi.spyOn(router, 'useOutletContext').mockReturnValue({
-      universities: [],
+      universities: null,
       handleCloseDetailsPage: vi.fn(),
     });
     vi.spyOn(router, 'useParams').mockReturnValue({ id: 'harvard.edu' });
@@ -96,5 +96,43 @@ describe('DetailsPage', () => {
     });
 
     expect(mockCloseFunction).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should display fallback if id is missing', async () => {
+    vi.spyOn(router, 'useOutletContext').mockReturnValue({
+      universities: basicMockUniversities,
+      handleCloseDetailsPage: vi.fn(),
+    });
+    vi.spyOn(router, 'useParams').mockReturnValue({ id: undefined });
+
+    render(
+      <MemoryRouter>
+        <DetailsPage />
+      </MemoryRouter>
+    );
+
+    await act(async () => {
+      expect(
+        screen.getByText(/No university data available/i)
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('Should display fallback if no matching university is found', async () => {
+    vi.spyOn(router, 'useOutletContext').mockReturnValue({
+      universities: basicMockUniversities,
+      handleCloseDetailsPage: vi.fn(),
+    });
+    vi.spyOn(router, 'useParams').mockReturnValue({ id: 'nonexistent.edu' });
+
+    render(
+      <MemoryRouter>
+        <DetailsPage />
+      </MemoryRouter>
+    );
+
+    await act(async () => {
+      expect(screen.getByText(/No university found/i)).toBeInTheDocument();
+    });
   });
 });

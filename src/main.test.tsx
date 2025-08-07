@@ -1,4 +1,4 @@
-import { vi, describe, it, expect } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { render } from '@testing-library/react';
@@ -15,6 +15,21 @@ vi.mock('react-dom/client', () => ({
 }));
 
 describe('main.tsx', () => {
+  let originalGetElementById: typeof document.getElementById;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    originalGetElementById = document.getElementById;
+    const existingRoot = document.getElementById('root');
+    if (existingRoot) {
+      existingRoot.remove();
+    }
+  });
+
+  afterEach(() => {
+    document.getElementById = originalGetElementById;
+    document.body.innerHTML = '';
+  });
+
   it('renders the App component wrapped in BrowserRouter and StrictMode', () => {
     const { getByTestId } = render(
       <React.StrictMode>
@@ -39,5 +54,13 @@ describe('main.tsx', () => {
 
     const mockRoot = createRootMock.mock.results[0].value;
     expect(mockRoot.render).toHaveBeenCalledWith(expect.anything());
+  });
+
+  it('does not render anything when root element is null', async () => {
+    document.getElementById = vi.fn().mockReturnValue(null);
+
+    await import('./main');
+
+    expect(createRoot).not.toHaveBeenCalled();
   });
 });

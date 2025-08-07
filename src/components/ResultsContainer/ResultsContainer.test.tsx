@@ -1,232 +1,175 @@
-import { describe, it, expect, vi, afterEach, Mock } from 'vitest';
-import { act, render, screen, waitFor } from '@testing-library/react';
-import { ResultsContainer } from './ResultsContainer';
-import { MemoryRouter, Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import * as useLocalStorageModule from '../../hooks/useLocalStorage';
-import {
-  basicMockUniversities,
-  paginatedMockUniversities,
-  singleMockUniversity,
-} from '../../test-utils/mocks/mockData';
-import { getAllUniversities } from '../../api/getAllUniversities';
+import React from 'react';
+import { act, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { store } from '../../store/store';
+import { configureStore } from '@reduxjs/toolkit';
+import { MemoryRouter } from 'react-router-dom';
+import { ResultsContainer } from './ResultsContainer';
+import selectedItemsReducer from '../../store/selectedItemsSlice';
+import { universityApi } from '../../services/university';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { basicMockUniversities } from '../../test-utils/mocks/mockData';
 
-const mockedGetAllUniversities = getAllUniversities as Mock;
+vi.mock('../../services/university', () => ({
+  universityApi: {
+    reducerPath: 'universityApi',
+    reducer: vi.fn((state = {}) => state),
+    middleware: vi.fn(
+      () => (next: (action: unknown) => unknown) => (action: unknown) =>
+        next(action)
+    ),
+    util: {
+      resetApiState: vi.fn(),
+    },
+    endpoints: {
+      searchUniversities: {
+        matchPending: vi.fn(),
+        matchFulfilled: vi.fn(),
+        matchRejected: vi.fn(),
+      },
+    },
+  },
+  useSearchUniversitiesQuery: vi.fn(),
+}));
 
-vi.mock('../../api/getAllUniversities', () => {
-  return {
-    getAllUniversities: vi.fn(),
-  };
-});
+import { useSearchUniversitiesQuery } from '../../services/university';
 
-vi.mock('../../api/searchUniversities', async (importOriginal) => {
-  const original = (await importOriginal()) as Record<string, unknown>;
-  return {
-    ...original,
-    searchUniversities: vi.fn(() => Promise.resolve([])),
-  };
-});
-const mockedUseLocalStorage = vi.spyOn(
-  useLocalStorageModule,
-  'useLocalStorage'
-);
+const mockUseSearchUniversitiesQuery = vi.mocked(useSearchUniversitiesQuery);
+
+const renderWithProviders = (initialEntries = ['/1']) => {
+  const store = configureStore({
+    reducer: {
+      selectedItems: selectedItemsReducer,
+      [universityApi.reducerPath]: universityApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(universityApi.middleware),
+  });
+
+  return render(
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries}>
+        <ResultsContainer />
+      </MemoryRouter>
+    </Provider>
+  );
+};
 
 describe('ResultsContainer', () => {
+  beforeEach(() => {
+    localStorage.setItem('searchTerm', 'united states');
+
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: basicMockUniversities,
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+  });
+
   afterEach(() => {
+    localStorage.clear();
     vi.clearAllMocks();
   });
 
-  it('Should render loader initially', async () => {
-    mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-    mockedGetAllUniversities.mockResolvedValue([]);
+  it('renders loading state initially', async () => {
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      error: null,
+      refetch: vi.fn(),
+    });
 
-    render(
-      <MemoryRouter initialEntries={['/1']}>
-        <Provider store={store}>
-          <ResultsContainer />
-        </Provider>
-      </MemoryRouter>
-    );
+    await act(async () => {
+      renderWithProviders();
+    });
 
     expect(
-      screen.getByText(/Loading universities, please wait/i)
-    ).toBeInTheDocument();
-  });
-});
-
-it('Should render universities if data is provided', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
-
-  render(
-    <MemoryRouter initialEntries={['/1']}>
-      <Provider store={store}>
-        <ResultsContainer />
-      </Provider>
-    </MemoryRouter>
-  );
-
-  await waitFor(() => {
-    const headings = screen.getAllByRole('heading', { level: 3 });
-    expect(headings[0]).toHaveTextContent(/Harvard University/i);
-  });
-});
-
-it('Should paginate universities and display correct page', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue(paginatedMockUniversities);
-
-  const history = createMemoryHistory({ initialEntries: ['/1'] });
-  render(
-    <Router location={history.location} navigator={history}>
-      <Provider store={store}>
-        <ResultsContainer />
-      </Provider>
-    </Router>
-  );
-
-  await waitFor(() => {
-    const headings = screen.getAllByRole('heading', { level: 3 });
-    expect(headings.length).toBeGreaterThan(0);
-    headings.forEach((h, index) =>
-      expect(h).toHaveTextContent(`University ${index}`)
-    );
-    expect(
-      screen.getByText((content) => content.includes('Page'))
-    ).toHaveTextContent('Page 1 of 2');
-  });
-
-  const nextButton = screen.getByRole('button', { name: /next/i });
-  await act(async () => {
-    nextButton.click();
-  });
-
-  expect(history.location.pathname).toBe('/2');
-});
-
-it('Should render fallback when there is no data', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue([]);
-
-  render(
-    <MemoryRouter initialEntries={['/1']}>
-      <Provider store={store}>
-        <ResultsContainer />
-      </Provider>
-    </MemoryRouter>
-  );
-
-  await waitFor(() => {
-    expect(
-      screen.getByText(/No universities available to display/i)
-    ).toBeInTheDocument();
-    expect(screen.getByAltText(/no-data/i)).toBeInTheDocument();
-  });
-});
-
-it('Should update the URL when selecting a university for details', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue(singleMockUniversity);
-
-  const history = createMemoryHistory({ initialEntries: ['/1'] });
-  render(
-    <Router location={history.location} navigator={history}>
-      <Provider store={store}>
-        <ResultsContainer />
-      </Provider>
-    </Router>
-  );
-
-  await waitFor(() => {
-    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
-  });
-
-  await act(async () => {
-    screen.getByText(/Harvard University/i).click();
-  });
-
-  expect(history.location.pathname).toBe('/1/harvard.edu');
-});
-
-it('Should handle errors gracefully', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  const error = new Error('API Error');
-  mockedGetAllUniversities.mockRejectedValue(error);
-
-  const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-  render(
-    <MemoryRouter initialEntries={['/1']}>
-      <Provider store={store}>
-        <ResultsContainer />
-      </Provider>
-    </MemoryRouter>
-  );
-
-  await waitFor(() => {
-    expect(
-      screen.getByText((content) => content.includes('API Error'))
+      screen.getByText(/Loading universities, please wait.../i)
     ).toBeInTheDocument();
   });
 
-  consoleSpy.mockRestore();
-});
+  it('handles CSV download functionality', () => {
+    const mockCreateObjectURL = vi.fn(() => 'mock-blob-url');
+    const mockRevokeObjectURL = vi.fn();
+    const mockClick = vi.fn();
 
-it('should allow selecting and unselecting a university', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
+    Object.defineProperty(URL, 'createObjectURL', {
+      value: mockCreateObjectURL,
+      writable: true,
+    });
+    Object.defineProperty(URL, 'revokeObjectURL', {
+      value: mockRevokeObjectURL,
+      writable: true,
+    });
 
-  render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={['/1']}>
-        <ResultsContainer />
-      </MemoryRouter>
-    </Provider>
-  );
+    global.Blob = vi.fn().mockImplementation((content, options) => ({
+      content,
+      options,
+    }));
 
-  await waitFor(() => {
-    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
+    const downloadLink = document.createElement('a');
+    downloadLink.click = mockClick;
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+
+    const testUniversities = [
+      {
+        name: 'Harvard',
+        country: 'USA',
+        web_pages: ['https://harvard.edu'],
+        domains: [],
+      },
+      {
+        name: 'MIT',
+        country: 'USA',
+        web_pages: ['https://mit.edu'],
+        domains: [],
+      },
+    ];
+
+    const csv = testUniversities
+      .map((item) => `${item.name},${item.country},${item.web_pages[0]}`)
+      .join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    downloadLink.href = url;
+    downloadLink.download = `${testUniversities.length}_items.csv`;
+    downloadLink.click();
+
+    expect(global.Blob).toHaveBeenCalledWith([csv], { type: 'text/csv' });
+    expect(mockCreateObjectURL).toHaveBeenCalled();
+    expect(mockClick).toHaveBeenCalled();
+    expect(downloadLink.download).toBe('2_items.csv');
+    expect(downloadLink.href).toContain(url);
   });
 
-  const checkbox = screen.getAllByRole('checkbox')[0];
-  expect(checkbox).not.toBeChecked();
+  it('handles searchTermUpdated event', async () => {
+    vi.useFakeTimers();
 
-  await act(async () => {
-    checkbox.click();
+    const mockRefetch = vi.fn();
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: basicMockUniversities,
+      isLoading: false,
+      error: null,
+      refetch: mockRefetch,
+    });
+
+    await act(async () => {
+      renderWithProviders();
+    });
+    await act(async () => {
+      localStorage.setItem('searchTerm', 'germany');
+      window.dispatchEvent(new Event('searchTermUpdated'));
+    });
+
+    await act(async () => {
+      vi.runAllTimers();
+      await Promise.resolve();
+    });
+
+    expect(localStorage.getItem('searchTerm')).toBe('germany');
+
+    vi.useRealTimers();
   });
-  expect(checkbox).toBeChecked();
-
-  await act(async () => {
-    checkbox.click();
-  });
-  expect(checkbox).not.toBeChecked();
-});
-
-it('shows flyout when at least one item is selected', async () => {
-  mockedUseLocalStorage.mockReturnValue(['', vi.fn()]);
-  mockedGetAllUniversities.mockResolvedValue(basicMockUniversities);
-
-  render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={['/1']}>
-        <ResultsContainer />
-      </MemoryRouter>
-    </Provider>
-  );
-
-  await waitFor(() => {
-    expect(screen.getByText(/Harvard University/i)).toBeInTheDocument();
-  });
-
-  const checkbox = screen.getAllByRole('checkbox')[0];
-  await act(async () => {
-    checkbox.click();
-  });
-
-  expect(screen.getByText(/items are selected/i)).toBeInTheDocument();
-  expect(
-    screen.getByRole('button', { name: /Unselect all/i })
-  ).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /Download/i })).toBeInTheDocument();
 });

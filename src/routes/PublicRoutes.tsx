@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { DetailsPage } from '../components/DetailsPage/DetailsPage';
 import { MainContainer } from '../components/MainContainer/MainContainer';
 import { About } from '../pages/AboutPage/AboutPage';
@@ -6,10 +6,14 @@ import { NotFoundPage } from '../pages/__mocks__/404Page';
 import { AppRoutes } from './routes';
 import { ResultsContainer } from '../components/ResultsContainer/ResultsContainer';
 
-const UnauthorizedRoutes: React.FC = () => {
+const PublicRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainContainer />}>
+      <Route
+        path={AppRoutes.HOME_ROUTE}
+        element={<Navigate to="/1" replace />}
+      />
+      <Route path={AppRoutes.HOME_ROUTE} element={<MainContainer />}>
         <Route path=":page" element={<ResultsContainer />}>
           <Route path=":id" element={<DetailsPage />} />
         </Route>
@@ -25,4 +29,4 @@ const UnauthorizedRoutes: React.FC = () => {
   );
 };
 
-export default UnauthorizedRoutes;
+export default PublicRoutes;
