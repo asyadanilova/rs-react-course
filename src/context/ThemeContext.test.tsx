@@ -14,6 +14,19 @@ const TestComponent: React.FC = () => {
   );
 };
 
+const ThemeConsumer: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <div>
+      <p data-testid="current-theme">Current theme: {theme}</p>
+      <button data-testid="toggle-theme" onClick={toggleTheme}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+};
+
 describe('ThemeContext', () => {
   it('provides default theme as light', () => {
     render(
@@ -36,5 +49,17 @@ describe('ThemeContext', () => {
     expect(themeSpan).toHaveTextContent('light');
     toggleBtn.click();
     expect(themeSpan).toHaveTextContent('light');
+  });
+
+  it('provides correct theme value to children', () => {
+    render(
+      <ThemeProvider>
+        <ThemeConsumer />
+      </ThemeProvider>
+    );
+
+    expect(screen.getByTestId('current-theme')).toHaveTextContent(
+      'Current theme: light'
+    );
   });
 });
