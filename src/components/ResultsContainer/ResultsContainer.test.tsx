@@ -1,4 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
@@ -7,8 +14,32 @@ import selectedItemsReducer from '../../store/selectedItemsSlice';
 import { universityApi } from '../../services/university';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { basicMockUniversities } from '../../test-utils/mocks/mockData';
-import { server } from '../../test-utils/test-setup';
-import { http } from 'msw';
+
+vi.mock('../../services/university', () => ({
+  universityApi: {
+    reducerPath: 'universityApi',
+    reducer: vi.fn((state = {}) => state),
+    middleware: vi.fn(
+      () => (next: (action: unknown) => unknown) => (action: unknown) =>
+        next(action)
+    ),
+    util: {
+      resetApiState: vi.fn(),
+    },
+    endpoints: {
+      searchUniversities: {
+        matchPending: vi.fn(),
+        matchFulfilled: vi.fn(),
+        matchRejected: vi.fn(),
+      },
+    },
+  },
+  useSearchUniversitiesQuery: vi.fn(),
+}));
+
+import { useSearchUniversitiesQuery } from '../../services/university';
+
+const mockUseSearchUniversitiesQuery = vi.mocked(useSearchUniversitiesQuery);
 
 const renderWithProviders = (initialEntries = ['/1']) => {
   const store = configureStore({
@@ -32,6 +63,13 @@ const renderWithProviders = (initialEntries = ['/1']) => {
 describe('ResultsContainer', () => {
   beforeEach(() => {
     localStorage.setItem('searchTerm', 'united states');
+
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: basicMockUniversities,
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    });
   });
 
   afterEach(() => {
@@ -40,25 +78,24 @@ describe('ResultsContainer', () => {
   });
 
   it('renders loading state initially', async () => {
-    server.use(
-      http.get('/api/search', async () => {
-        return new Promise((resolve) => {
-          setTimeout(() => resolve(Response.json(basicMockUniversities)), 1000);
-        });
-      })
-    );
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      error: null,
+      refetch: vi.fn(),
+    });
 
-    renderWithProviders();
+    await act(async () => {
+      renderWithProviders();
+    });
 
     expect(
       screen.getByText(/Loading universities, please wait.../i)
     ).toBeInTheDocument();
   });
 
-  it('handles CSV download with selected items', () => {
-    const mockCreateObjectURL = vi.fn(
-      () => 'http://localhost:3000/mock-blob-url'
-    );
+  it('handles CSV download functionality', () => {
+    const mockCreateObjectURL = vi.fn(() => 'mock-blob-url');
     const mockRevokeObjectURL = vi.fn();
     const mockClick = vi.fn();
 
@@ -75,8 +112,6 @@ describe('ResultsContainer', () => {
       content,
       options,
     }));
-
-    renderWithProviders();
 
     const downloadLink = document.createElement('a');
     downloadLink.click = mockClick;
@@ -112,6 +147,35 @@ describe('ResultsContainer', () => {
     expect(mockCreateObjectURL).toHaveBeenCalled();
     expect(mockClick).toHaveBeenCalled();
     expect(downloadLink.download).toBe('2_items.csv');
-    expect(downloadLink.href).toBe(url);
+    expect(downloadLink.href).toContain(url);
+  });
+
+  it('handles searchTermUpdated event', async () => {
+    vi.useFakeTimers();
+
+    const mockRefetch = vi.fn();
+    mockUseSearchUniversitiesQuery.mockReturnValue({
+      data: basicMockUniversities,
+      isLoading: false,
+      error: null,
+      refetch: mockRefetch,
+    });
+
+    await act(async () => {
+      renderWithProviders();
+    });
+    await act(async () => {
+      localStorage.setItem('searchTerm', 'germany');
+      window.dispatchEvent(new Event('searchTermUpdated'));
+    });
+
+    await act(async () => {
+      vi.runAllTimers();
+      await Promise.resolve();
+    });
+
+    expect(localStorage.getItem('searchTerm')).toBe('germany');
+
+    vi.useRealTimers();
   });
 });

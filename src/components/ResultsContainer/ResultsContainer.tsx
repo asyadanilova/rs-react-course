@@ -14,23 +14,27 @@ import type { RootState } from '../../store/store';
 import { useSearchUniversitiesQuery } from '../../services/university';
 
 const ResultsContainer: React.FC = () => {
-  const [showLoading, setShowLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { page, id } = useParams<{ page: string; id?: string }>();
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
-  const dispatch = useDispatch();
+  const currentPage = parseInt(page || '1', 10) || 1;
   const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem('searchTerm') || ''
   );
   const [searchKey, setSearchKey] = useState(0);
-  const { data, isLoading, error } = useSearchUniversitiesQuery({
-    country: searchTerm,
-    searchKey,
-  });
-  const navigate = useNavigate();
-  const { page, id } = useParams<{ page: string; id?: string }>();
-  const currentPage = parseInt(page || '1', 10) || 1;
+  const { data, isLoading, error, refetch } = useSearchUniversitiesQuery(
+    {
+      country: searchTerm,
+      searchKey,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
   const downloadLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const [customIsLoading, setCustomIsLoading] = useState(false);
 
   useEffect(() => {
     const handler = () => {
@@ -41,21 +45,13 @@ const ResultsContainer: React.FC = () => {
     return () => window.removeEventListener('searchTermUpdated', handler);
   }, []);
 
-  useEffect(() => {
-    let timeout: NodeJS.Timeout | undefined;
-    if (isLoading) {
-      setShowLoading(true);
-    } else if (showLoading) {
-      timeout = setTimeout(() => setShowLoading(false), 1000);
-    }
-    return () => {
-      if (timeout) clearTimeout(timeout);
-    };
-  }, [isLoading, showLoading]);
-
-  useEffect(() => {
-    setShowLoading(true);
-  }, [searchTerm, searchKey]);
+  console.log('Debug:', {
+    searchTerm,
+    searchKey,
+    isLoading,
+    data,
+    error,
+  });
 
   let universities: University[] = [];
 
@@ -161,7 +157,13 @@ const ResultsContainer: React.FC = () => {
     });
   };
 
-  if (showLoading) {
+  const handleRefresh = () => {
+    setCustomIsLoading(true);
+    setTimeout(() => setCustomIsLoading(false), 1000);
+    refetch();
+  };
+
+  if (isLoading || customIsLoading) {
     return (
       <div className="loader-container">
         <p className="loader-message">Loading universities, please wait...</p>
@@ -174,7 +176,7 @@ const ResultsContainer: React.FC = () => {
       <div className="results-container">
         <button
           className="refresh-button"
-          onClick={() => setSearchKey((k) => k + 1)}
+          onClick={handleRefresh}
           style={{ marginLeft: '1rem' }}
         >
           <i className="bi bi-arrow-clockwise"></i>
