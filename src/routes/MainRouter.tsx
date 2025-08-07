@@ -1,9 +1,7 @@
-import UnauthorizedRoutes from './UnauthorizedRoutes';
+import PublicRoutes from './PublicRoutes';
 
 const MainRouter: React.FC = () => {
-  //const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-
-  return <UnauthorizedRoutes />;
+  return <PublicRoutes />;
 };
 
 export default MainRouter;

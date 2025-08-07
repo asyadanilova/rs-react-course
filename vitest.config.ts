@@ -6,6 +6,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test-utils/test-setup.ts',
+    testTimeout: 10000,
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],

@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
 import { AppRoutes } from '../../routes/routes';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../hooks/useTheme';
 import { BsSunFill, BsMoonFill } from 'react-icons/bs';
 
 const Header = () => {

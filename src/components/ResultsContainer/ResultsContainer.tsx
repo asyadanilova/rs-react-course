@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './ResultsContainer.css';
-import { searchUniversities } from '../../api/searchUniversities';
-import { getAllUniversities } from '../../api/getAllUniversities';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import noData from '../../assets/no-data.png';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
@@ -13,42 +11,64 @@ import {
   unselectAll,
 } from '../../store/selectedItemsSlice';
 import type { RootState } from '../../store/store';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useSearchUniversitiesQuery } from '../../services/university';
 
 const ResultsContainer: React.FC = () => {
+  const [showLoading, setShowLoading] = useState(false);
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
   const dispatch = useDispatch();
-  const [universities, setUniversities] = useState<University[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [searchTerm] = useLocalStorage('searchTerm', '');
+  const [searchTerm, setSearchTerm] = useState(
+    localStorage.getItem('searchTerm') || ''
+  );
+  const [searchKey, setSearchKey] = useState(0);
+  const { data, isLoading, error } = useSearchUniversitiesQuery({
+    country: searchTerm,
+    searchKey,
+  });
   const navigate = useNavigate();
   const { page, id } = useParams<{ page: string; id?: string }>();
   const currentPage = parseInt(page || '1', 10) || 1;
+  const downloadLinkRef = useRef<HTMLAnchorElement | null>(null);
 
-  const fetchUniversities = async () => {
-    const searchTerm = localStorage.getItem('searchTerm') || '';
-    setLoading(true);
-    try {
-      if (!searchTerm.trim()) {
-        const fetchedUniversities = await getAllUniversities();
-        setUniversities(fetchedUniversities);
-      } else {
-        const searchedUniversities = await searchUniversities(
-          searchTerm.trim()
-        );
-        setUniversities(searchedUniversities);
-      }
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching universities:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error');
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    const handler = () => {
+      setSearchTerm(localStorage.getItem('searchTerm') || '');
+      setSearchKey((k) => k + 1);
+    };
+    window.addEventListener('searchTermUpdated', handler);
+    return () => window.removeEventListener('searchTermUpdated', handler);
+  }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined;
+    if (isLoading) {
+      setShowLoading(true);
+    } else if (showLoading) {
+      timeout = setTimeout(() => setShowLoading(false), 1000);
     }
-  };
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [isLoading, showLoading]);
+
+  useEffect(() => {
+    setShowLoading(true);
+  }, [searchTerm, searchKey]);
+
+  let universities: University[] = [];
+
+  if (Array.isArray(data)) {
+    universities = data;
+  } else if (
+    data &&
+    typeof data === 'object' &&
+    'data' in data &&
+    Array.isArray((data as { data: unknown }).data)
+  ) {
+    universities = (data as { data: University[] }).data;
+  }
 
   function downloadCSV(items: University[]) {
     const csv = items
@@ -56,11 +76,12 @@ const ResultsContainer: React.FC = () => {
       .join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${items.length}_items.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    if (downloadLinkRef.current) {
+      downloadLinkRef.current.href = url;
+      downloadLinkRef.current.download = `${items.length}_items.csv`;
+      downloadLinkRef.current.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    }
   }
 
   const handleSelectUniversity = (university: University) => {
@@ -88,20 +109,6 @@ const ResultsContainer: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUniversities();
-  }, [searchTerm]);
-
-  useEffect(() => {
-    const handleSearchTermUpdate = async () => {
-      await fetchUniversities();
-    };
-    window.addEventListener('searchTermUpdated', handleSearchTermUpdate);
-    return () => {
-      window.removeEventListener('searchTermUpdated', handleSearchTermUpdate);
-    };
-  }, []);
-
   const renderUniversitiesList = (): JSX.Element[] | JSX.Element => {
     if (
       !Array.isArray(paginatedUniversities) ||
@@ -124,19 +131,22 @@ const ResultsContainer: React.FC = () => {
           key={university.domains[0]}
           className="university-card"
           style={{ cursor: 'pointer' }}
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest('.select-checkbox')) return;
+            handleSelectUniversity(university);
+          }}
         >
           <input
             type="checkbox"
             className="select-checkbox"
             checked={isSelected}
+            onClick={(e) => e.stopPropagation()}
             onChange={(e) => {
               if (e.target.checked) dispatch(selectItem(university));
               else dispatch(unselectItem(university.domains[0]));
             }}
           />
-          <h3 onClick={() => handleSelectUniversity(university)}>
-            {university.name}
-          </h3>
+          <h3>{university.name}</h3>
           <p>
             <strong>Country:</strong> {university.country}
           </p>
@@ -151,7 +161,7 @@ const ResultsContainer: React.FC = () => {
     });
   };
 
-  if (loading) {
+  if (showLoading) {
     return (
       <div className="loader-container">
         <p className="loader-message">Loading universities, please wait...</p>
@@ -162,10 +172,17 @@ const ResultsContainer: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className="results-container">
+        <button
+          className="refresh-button"
+          onClick={() => setSearchKey((k) => k + 1)}
+          style={{ marginLeft: '1rem' }}
+        >
+          <i className="bi bi-arrow-clockwise"></i>
+        </button>
         <div className="before-pagination">
           <div className="master-container">
             {error ? (
-              <p className="error-message">{error}</p>
+              <p className="error-message">{String(error)}</p>
             ) : (
               renderUniversitiesList()
             )}
@@ -205,6 +222,9 @@ const ResultsContainer: React.FC = () => {
               Unselect all
             </button>
             <button onClick={() => downloadCSV(selectedItems)}>Download</button>
+            <a ref={downloadLinkRef} style={{ display: 'none' }}>
+              Download
+            </a>
           </div>
         )}
       </div>
