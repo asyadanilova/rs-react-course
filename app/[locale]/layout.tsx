@@ -36,7 +36,3 @@ export default function ResultsLayout({
     </Provider>
   );
 }
-
-export async function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((locale) => ({ locale }));
-}
