@@ -15,11 +15,9 @@ export default function RootLayout({
   children: ReactNode;
   params: { locale: string };
 }) {
-  const locale =
-    params?.locale && SUPPORTED_LOCALES.includes(params.locale)
-      ? params.locale
-      : 'en';
-  const messages = MESSAGES[locale];
+  const { locale } = params;
+  const safeLocale = SUPPORTED_LOCALES.includes(locale) ? locale : 'en';
+  const messages = MESSAGES[safeLocale];
 
   return (
     <html lang={locale}>
@@ -31,7 +29,7 @@ export default function RootLayout({
           <Provider store={store}>
             <ThemeProvider>
               <NextIntlClientProvider
-                locale={locale}
+                locale={safeLocale}
                 messages={messages}
                 timeZone="Europe/Moscow"
               >
