@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///turbopack:///[project]/src/components/LanguageSwitcher/C:/Users/Asya_Danilova/Desktop/rs-react-course/src/components/LanguageSwitcher/LanguageSwitcher.scss"],"sourcesContent":[".language-switcher {\n  display: flex;\n  gap: 0.5rem;\n}\n\n.language-switcher__button {\n  max-height: fit-content;\n  min-width: 5rem;\n  padding: 0.5rem;\n  border: 2px solid var(--primary-color);\n  border-radius: 5px;\n  background-color: var(--background-color);\n  color: var(--primary-color);\n  font-size: 1rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.3s ease;\n\n  &:hover {\n    background-color: var(--primary-color);\n    color: #ffffff;\n  }\n\n  &:focus {\n    outline: none;\n    box-shadow: 0 0 5px var(--secondary-color);\n  }\n}\n\n@media (max-width: 768px) {\n  .language-switcher__button {\n    font-size: 0.9rem;\n    padding: 0.4rem 0.8rem;\n  }\n}\n"],"names":[],"mappings":"AAAA;;;;;AAKA;;;;;;;;;;;;;;;AAaE;;;;;AAKA;;;;;AAMF;EACE"}}]
+}

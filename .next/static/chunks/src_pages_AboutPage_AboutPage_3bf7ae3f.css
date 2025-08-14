@@ -1,0 +1,101 @@
+/* [project]/src/pages/AboutPage/AboutPage.css [app-client] (css) */
+.about-us {
+  color: var(--text-color);
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+}
+
+.page-header {
+  text-align: center;
+  background: var(--background-color);
+}
+
+.page-header h1 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+}
+
+.page-header p {
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.scroll-area {
+  flex-direction: row;
+  justify-content: center;
+  display: flex;
+}
+
+.team-member {
+  background: var(--background-color);
+  opacity: 0;
+  border-radius: 8px;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  padding: 20px;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  position: relative;
+  transform: translateY(20px);
+}
+
+.team-member.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.team-member:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.member-photo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.member-name {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.member-role {
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.member-bio,
+.member-contributions {
+  text-align: start;
+  align-self: flex-start;
+  margin: 10px 0;
+}
+
+.github-link {
+  color: var(--primary-color);
+  align-self: flex-start;
+  margin-top: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 680px) {
+  .team-members {
+    flex-direction: column;
+  }
+
+  .team-member {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=src_pages_AboutPage_AboutPage_3bf7ae3f.css.map*/

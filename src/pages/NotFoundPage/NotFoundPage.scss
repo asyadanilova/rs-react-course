@@ -8,6 +8,11 @@
   color: var(--primary-color);
 }
 
+button {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
 .not-found-image {
   max-width: 20%;
 }

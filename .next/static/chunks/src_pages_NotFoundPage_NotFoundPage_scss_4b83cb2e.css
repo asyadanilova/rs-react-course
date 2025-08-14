@@ -1,0 +1,33 @@
+/* [project]/src/pages/NotFoundPage/NotFoundPage.scss.css [app-client] (css) */
+.not-found-page {
+  text-align: center;
+  padding: 50px;
+}
+
+.not-found-page h1 {
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.not-found-image {
+  max-width: 20%;
+}
+
+.not-found-page p {
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+
+.not-found-page .home-link {
+  color: var(--background-color);
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=src_pages_NotFoundPage_NotFoundPage_scss_4b83cb2e.css.map*/

@@ -1,3 +1,4 @@
+import { University } from '@/utils/consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const universityApi = createApi({
@@ -10,7 +11,11 @@ export const universityApi = createApi({
     >({
       query: ({ country }) => `/search?&country=${country}`,
     }),
+    getUniversities: builder.query<University[], undefined>({
+      query: () => `/search?&limit=15`,
+    }),
   }),
 });
 
-export const { useSearchUniversitiesQuery } = universityApi;
+export const { useSearchUniversitiesQuery, useGetUniversitiesQuery } =
+  universityApi;

@@ -1,0 +1,474 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[11].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[11].use[5]!./src/components/SearchContainer/SearchContainer.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.search {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2vw;
+  width: 90%;
+  margin: auto;
+  padding: 1.5vw;
+  background-color: #f8f8fc;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  height: 5vw;
+  width: 45vw;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0px 0px 8px rgba(108, 99, 255, 0.5);
+}
+
+input:hover {
+  border-color: var(--primary-color);
+}
+
+button {
+  height: 5vw;
+  min-width: 18vw;
+  border-radius: 0.5rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--hover-color);
+  box-shadow: 0px 4px 8px rgba(108, 99, 255, 0.3);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0px 0px 8px rgba(108, 99, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .search {
+    flex-direction: column;
+    gap: 2vw;
+    padding: 2vw;
+  }
+  input {
+    width: 80vw;
+    font-size: 1rem;
+    height: 6vw;
+  }
+  button {
+    min-width: 50vw;
+    height: 6vw;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 480px) {
+  .search__input {
+    min-width: 100%;
+  }
+  input {
+    min-width: 98.5%;
+    font-size: 0.9rem;
+    height: 8vw;
+  }
+  .search__button {
+    min-width: 100%;
+  }
+  button {
+    min-width: 100%;
+    font-size: 0.8rem;
+    height: 8vw;
+  }
+}
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/components/ResultsContainer/ResultsContainer.css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.before-pagination {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.loader-container {
+  margin: auto;
+}
+
+.master-container {
+  flex: 70% 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  transition: flex 0.3s ease-in-out;
+  padding: 10px;
+  text-align: center;
+}
+
+.results-container.details-visible .master-container {
+  flex: 30% 1;
+}
+
+.university-card {
+  padding: 15px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.university-card:hover {
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.university-card.selected {
+  background-color: var(--secondary-color);
+  border-color: #add8e6;
+}
+
+.details-panel {
+  flex: 40% 1;
+  border-left: 1px solid #ccc;
+  padding: 20px;
+  background-color: var(--background-color);
+  transition:
+    opacity 0.3s ease,
+    flex 0.3s ease;
+}
+
+.details-panel.hidden {
+  display: none;
+}
+
+.details-container {
+  padding: 10px 15px;
+}
+
+.close-details {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background-color: #ff4d4f;
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.close-details:hover {
+  background-color: #ff7875;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  margin: 20px auto;
+}
+
+.previous-button,
+.next-button {
+  padding: 10px 15px;
+  min-width: 120px;
+  height: 50px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.previous-button[disabled],
+.next-button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.previous-button:hover:not([disabled]),
+.next-button:hover:not([disabled]) {
+  background-color: ver(--hover-color);
+}
+
+.pagination-info {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.select-checkbox {
+  margin-right: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.flyout {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.flyout span {
+  font-size: 1rem;
+  color: #333;
+}
+
+.flyout button {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  max-width: auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.flyout button:hover {
+  background-color: var(--hover-color);
+}
+
+@media (max-width: 1024px) {
+  .results-container {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .before-pagination {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .master-container {
+    gap: 12px;
+    padding: 5px;
+    flex: 100% 1;
+  }
+
+  .details-panel {
+    padding: 10px;
+    flex: 100% 1;
+    border-left: none;
+    border-top: 1px solid #ccc;
+    margin-top: 16px;
+  }
+
+  .university-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .results-container {
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .before-pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .master-container {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .university-card {
+    min-width: 0;
+    max-width: 90%;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .error-container img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .details-panel {
+    padding: 8px;
+    font-size: 0.95rem;
+    border-left: none;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.95rem;
+    margin: 10px auto;
+  }
+
+  .previous-button,
+  .next-button {
+    min-width: 90px;
+    height: 40px;
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+
+  .flyout {
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+    left: 5px;
+    width: auto;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .flyout span {
+    font-size: 0.95rem;
+  }
+
+  .flyout button {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+}
+
+.refresh-button {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-width: 40px;
+  margin-right: 10%;
+}
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[11].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[11].use[5]!./src/components/MainContainer/MainContainer.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.main-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 90%;
+  margin-top: 3vw;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding: 2vw;
+  background-color: var(--background-color);
+}
+
+.main-container img {
+  max-width: 40%;
+}
+
+.app-description {
+  font-size: 1.1rem;
+  width: 55%;
+  word-wrap: break-word;
+  border: 1px solid var(--primary-color);
+  border-radius: 0.5rem;
+  padding: 2vw;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.app-description:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: default;
+}
+
+.app-description span {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .app-description {
+    font-size: 1rem;
+    width: 90%;
+  }
+  .main-container img {
+    max-width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .main-container img {
+    width: 100%;
+  }
+  .app-description {
+    font-size: 0.9rem;
+    text-align: justify;
+  }
+}

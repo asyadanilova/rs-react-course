@@ -1,0 +1,1262 @@
+module.exports = {
+  '[project]/src/components/SearchContainer/SearchContainer.tsx [app-ssr] (ecmascript)':
+    (__turbopack_context__) => {
+      'use strict';
+
+      __turbopack_context__.s({
+        SearchContainer: () => SearchContainer,
+      });
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/react-redux/dist/react-redux.mjs [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$searchSlice$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/store/searchSlice.tsx [app-ssr] (ecmascript)'
+        );
+      ('use client');
+      const SearchContainer = () => {
+        const dispatch = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useDispatch'
+        ])();
+        const searchTerm = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useSelector'
+        ])((state) => state.search.searchTerm);
+        const [inputTerm, setInputTerm] = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useState'
+        ])(searchTerm);
+        const handleInputChange = (event) => {
+          setInputTerm(event.target.value);
+        };
+        const handleSearch = () => {
+          const normalizedTerm = inputTerm.toLowerCase().trim();
+          localStorage.setItem('searchTerm', normalizedTerm);
+          dispatch(
+            (0,
+            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$searchSlice$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+              'setSearchTerm'
+            ])(normalizedTerm)
+          );
+          window.dispatchEvent(new Event('searchTermUpdated'));
+        };
+        return /*#__PURE__*/ (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'jsxDEV'
+        ])(
+          'div',
+          {
+            className: 'search',
+            children: [
+              /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                'div',
+                {
+                  className: 'search__input',
+                  children: /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'input',
+                    {
+                      type: 'text',
+                      value: inputTerm,
+                      onChange: handleInputChange,
+                      placeholder: 'Enter your request...',
+                      className: 'search-input',
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/SearchContainer/SearchContainer.tsx',
+                      lineNumber: 28,
+                      columnNumber: 9,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                },
+                void 0,
+                false,
+                {
+                  fileName:
+                    '[project]/src/components/SearchContainer/SearchContainer.tsx',
+                  lineNumber: 27,
+                  columnNumber: 7,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+              /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                'div',
+                {
+                  className: 'search__button',
+                  children: /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'button',
+                    {
+                      className: 'button',
+                      onClick: handleSearch,
+                      children: [
+                        'Search ',
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'i',
+                          {
+                            className: 'bi bi-search',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/SearchContainer/SearchContainer.tsx',
+                            lineNumber: 38,
+                            columnNumber: 18,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                      ],
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName:
+                        '[project]/src/components/SearchContainer/SearchContainer.tsx',
+                      lineNumber: 37,
+                      columnNumber: 9,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                },
+                void 0,
+                false,
+                {
+                  fileName:
+                    '[project]/src/components/SearchContainer/SearchContainer.tsx',
+                  lineNumber: 36,
+                  columnNumber: 7,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+            ],
+          },
+          void 0,
+          true,
+          {
+            fileName:
+              '[project]/src/components/SearchContainer/SearchContainer.tsx',
+            lineNumber: 26,
+            columnNumber: 5,
+          },
+          ('TURBOPACK compile-time value', void 0)
+        );
+      };
+    },
+  '[project]/public/no-data.png (static in ecmascript)': (
+    __turbopack_context__
+  ) => {
+    __turbopack_context__.v('/_next/static/media/no-data.9a6ef4a9.png');
+  },
+  '[project]/public/no-data.png.mjs { IMAGE => "[project]/public/no-data.png (static in ecmascript)" } [app-ssr] (structured image object, ecmascript)':
+    (__turbopack_context__) => {
+      'use strict';
+
+      __turbopack_context__.s({
+        default: () => __TURBOPACK__default__export__,
+      });
+      var __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$no$2d$data$2e$png__$28$static__in__ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/public/no-data.png (static in ecmascript)'
+        );
+      const __TURBOPACK__default__export__ = {
+        src: __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$no$2d$data$2e$png__$28$static__in__ecmascript$29$__[
+          'default'
+        ],
+        width: 506,
+        height: 493,
+        blurWidth: 8,
+        blurHeight: 8,
+        blurDataURL:
+          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAA4UlEQVR42nXPv2rCUBTH8VtKmzHFUtpSSm2Hgq0+QhyEgINCkGAC4SL6CC6+RkDB1cElgxnE1fmi6BNIQCH3XvwThQuC6BBPhLj5ge9y+C0HIXAHnuSvj/fXzF8q9f8rSdIjiiVAsVCtNeqEdDuz+aA/nmTSak6WnxMPACmKkvW8xWq5FCHn27Dv7k7tpsfc3nCkqmoevQFCyFQIEa7Xm5BSdsn3/aNpmhjdA9u2W/GAMXbpOohomlYKguBwc/AJHMdx4Sg458coSuneMAwLxW++AF3XyxjjSpRlWTiZ/P45A9XAf76rbt1GAAAAAElFTkSuQmCC',
+      };
+    },
+  '[project]/src/components/ResultsContainer/ResultsContainer.tsx [app-ssr] (ecmascript)':
+    (__turbopack_context__) => {
+      'use strict';
+
+      __turbopack_context__.s({
+        default: () => __TURBOPACK__default__export__,
+      });
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/react-redux/dist/react-redux.mjs [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$university$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/services/university.tsx [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ErrorBoundary$2f$ErrorBoundary$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/components/ErrorBoundary/ErrorBoundary.tsx [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$selectedItemsSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/store/selectedItemsSlice.ts [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$no$2d$data$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$public$2f$no$2d$data$2e$png__$28$static__in__ecmascript$2922$__$7d$__$5b$app$2d$ssr$5d$__$28$structured__image__object$2c$__ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/public/no-data.png.mjs { IMAGE => "[project]/public/no-data.png (static in ecmascript)" } [app-ssr] (structured image object, ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$router$2d$dom$2f$dist$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/react-router-dom/dist/index.js [app-ssr] (ecmascript)'
+        );
+      const ITEM_PER_PAGE = 10;
+      const ResultsContainer = ({
+        currentPage,
+        searchTerm: initialSearchTerm,
+        showDetails,
+      }) => {
+        const [searchTerm, setSearchTerm] = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useState'
+        ])(initialSearchTerm);
+        const router = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useRouter'
+        ])();
+        const dispatch = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useDispatch'
+        ])();
+        const params = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useParams'
+        ])();
+        const id = params?.id;
+        currentPage = parseInt(params?.page || '1', 10);
+        const selectedItems = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useSelector'
+        ])((state) => state.selectedItems.items);
+        const [searchKey, setSearchKey] = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useState'
+        ])(0);
+        const {
+          data: universities = [],
+          isLoading,
+          error,
+          refetch,
+        } = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$university$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useSearchUniversitiesQuery'
+        ])(
+          {
+            country: searchTerm,
+            searchKey,
+          },
+          {
+            refetchOnMountOrArgChange: true,
+          }
+        );
+        const downloadLinkRef = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useRef'
+        ])(null);
+        const [customIsLoading, setCustomIsLoading] = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useState'
+        ])(false);
+        (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useEffect'
+        ])(() => {
+          const handler = () => {
+            const term = localStorage.getItem('searchTerm') || '';
+            setSearchTerm(term);
+            setSearchKey((k) => k + 1);
+          };
+          window.addEventListener('searchTermUpdated', handler);
+          return () => window.removeEventListener('searchTermUpdated', handler);
+        }, []);
+        const downloadCSV = (items) => {
+          const csv = items
+            .map((item) => `${item.name},${item.country},${item.web_pages[0]}`)
+            .join('\n');
+          const blob = new Blob([csv], {
+            type: 'text/csv',
+          });
+          const url = URL.createObjectURL(blob);
+          if (downloadLinkRef.current) {
+            downloadLinkRef.current.href = url;
+            downloadLinkRef.current.download = `${items.length}_items.csv`;
+            downloadLinkRef.current.click();
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+          }
+        };
+        const handleSelectUniversity = (university) => {
+          router.push(`/${currentPage}/${university.domains[0]}`);
+        };
+        const handleCloseDetailsPage = () => {
+          router.push(`/${currentPage}`);
+        };
+        const paginatedUniversities = universities.slice(
+          (currentPage - 1) * ITEM_PER_PAGE,
+          currentPage * ITEM_PER_PAGE
+        );
+        const handleNextPage = () => {
+          if (currentPage < Math.ceil(universities.length / ITEM_PER_PAGE)) {
+            router.push(`/${currentPage + 1}`);
+          }
+        };
+        const handlePreviousPage = () => {
+          if (currentPage > 1) {
+            router.push(`/${currentPage - 1}`);
+          }
+        };
+        const handleRefresh = () => {
+          setCustomIsLoading(true);
+          setTimeout(() => setCustomIsLoading(false), 1000);
+          refetch();
+        };
+        const renderUniversitiesList = () => {
+          if (
+            !Array.isArray(paginatedUniversities) ||
+            paginatedUniversities.length === 0
+          ) {
+            return /*#__PURE__*/ (0,
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+              'jsxDEV'
+            ])(
+              'div',
+              {
+                className: 'error-container',
+                children: [
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'img',
+                    {
+                      src: __TURBOPACK__imported__module__$5b$project$5d2f$public$2f$no$2d$data$2e$png$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$public$2f$no$2d$data$2e$png__$28$static__in__ecmascript$2922$__$7d$__$5b$app$2d$ssr$5d$__$28$structured__image__object$2c$__ecmascript$29$__[
+                        'default'
+                      ].src,
+                      alt: 'No data',
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 111,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'p',
+                    {
+                      className: 'error-message',
+                      children: 'No universities available to display.',
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 112,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                ],
+              },
+              void 0,
+              true,
+              {
+                fileName:
+                  '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                lineNumber: 110,
+                columnNumber: 9,
+              },
+              ('TURBOPACK compile-time value', void 0)
+            );
+          }
+          return paginatedUniversities.map((university) => {
+            const isSelected = selectedItems.some(
+              (item) => item.domains[0] === university.domains[0]
+            );
+            return /*#__PURE__*/ (0,
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+              'jsxDEV'
+            ])(
+              'div',
+              {
+                className: 'university-card',
+                style: {
+                  cursor: 'pointer',
+                },
+                onClick: (e) => {
+                  if (e.target.closest('.select-checkbox')) return;
+                  handleSelectUniversity(university);
+                },
+                children: [
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'input',
+                    {
+                      type: 'checkbox',
+                      className: 'select-checkbox',
+                      checked: isSelected,
+                      onClick: (e) => e.stopPropagation(),
+                      onChange: (e) => {
+                        if (e.target.checked)
+                          dispatch(
+                            (0,
+                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$selectedItemsSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                              'selectItem'
+                            ])(university)
+                          );
+                        else
+                          dispatch(
+                            (0,
+                            __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$selectedItemsSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                              'unselectItem'
+                            ])(university.domains[0])
+                          );
+                      },
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 131,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'h3',
+                    {
+                      children: university.name,
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 141,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'p',
+                    {
+                      children: [
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'strong',
+                          {
+                            children: 'Country:',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 143,
+                            columnNumber: 13,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                        ' ',
+                        university.country,
+                      ],
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 142,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'p',
+                    {
+                      children: [
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'strong',
+                          {
+                            children: 'Web Site:',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 146,
+                            columnNumber: 13,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                        ' ',
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'a',
+                          {
+                            href: university.web_pages[0],
+                            target: '_blank',
+                            rel: 'noreferrer',
+                            children: university.web_pages[0] || 'No Web Site',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 147,
+                            columnNumber: 13,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                      ],
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 145,
+                      columnNumber: 11,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                ],
+              },
+              university.domains[0],
+              true,
+              {
+                fileName:
+                  '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                lineNumber: 122,
+                columnNumber: 9,
+              },
+              ('TURBOPACK compile-time value', void 0)
+            );
+          });
+        };
+        if (isLoading || customIsLoading) {
+          return /*#__PURE__*/ (0,
+          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+            'jsxDEV'
+          ])(
+            'div',
+            {
+              className: 'loader-container',
+              children: /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                'p',
+                {
+                  className: 'loader-message',
+                  children: 'Loading universities, please wait...',
+                },
+                void 0,
+                false,
+                {
+                  fileName:
+                    '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                  lineNumber: 159,
+                  columnNumber: 9,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+            },
+            void 0,
+            false,
+            {
+              fileName:
+                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+              lineNumber: 158,
+              columnNumber: 7,
+            },
+            ('TURBOPACK compile-time value', void 0)
+          );
+        }
+        return /*#__PURE__*/ (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'jsxDEV'
+        ])(
+          __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ErrorBoundary$2f$ErrorBoundary$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+            'ErrorBoundary'
+          ],
+          {
+            children: /*#__PURE__*/ (0,
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+              'jsxDEV'
+            ])(
+              'div',
+              {
+                className: 'results-container',
+                children: [
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'button',
+                    {
+                      className: 'refresh-button',
+                      onClick: handleRefresh,
+                      style: {
+                        marginLeft: '1rem',
+                      },
+                      children: /*#__PURE__*/ (0,
+                      __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                        'jsxDEV'
+                      ])(
+                        'i',
+                        {
+                          className: 'bi bi-arrow-clockwise',
+                        },
+                        void 0,
+                        false,
+                        {
+                          fileName:
+                            '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                          lineNumber: 172,
+                          columnNumber: 11,
+                        },
+                        ('TURBOPACK compile-time value', void 0)
+                      ),
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 167,
+                      columnNumber: 9,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'div',
+                    {
+                      className: 'before-pagination',
+                      children: [
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'div',
+                          {
+                            className: 'master-container',
+                            children: error
+                              ? /*#__PURE__*/ (0,
+                                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                                  'jsxDEV'
+                                ])(
+                                  'p',
+                                  {
+                                    className: 'error-message',
+                                    children: String(error),
+                                  },
+                                  void 0,
+                                  false,
+                                  {
+                                    fileName:
+                                      '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                                    lineNumber: 177,
+                                    columnNumber: 15,
+                                  },
+                                  ('TURBOPACK compile-time value', void 0)
+                                )
+                              : renderUniversitiesList(),
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 175,
+                            columnNumber: 11,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                        id &&
+                          showDetails &&
+                          universities.length > 0 &&
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'div',
+                            {
+                              className: 'details-panel',
+                              children: /*#__PURE__*/ (0,
+                              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                                'jsxDEV'
+                              ])(
+                                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$router$2d$dom$2f$dist$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                                  'Outlet'
+                                ],
+                                {
+                                  context: {
+                                    universities,
+                                    handleCloseDetailsPage,
+                                  },
+                                },
+                                void 0,
+                                false,
+                                {
+                                  fileName:
+                                    '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                                  lineNumber: 184,
+                                  columnNumber: 15,
+                                },
+                                ('TURBOPACK compile-time value', void 0)
+                              ),
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                              lineNumber: 183,
+                              columnNumber: 13,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                      ],
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 174,
+                      columnNumber: 9,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  /*#__PURE__*/ (0,
+                  __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                    'jsxDEV'
+                  ])(
+                    'div',
+                    {
+                      className: 'pagination-container',
+                      children: [
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'button',
+                          {
+                            className: 'previous-button',
+                            onClick: handlePreviousPage,
+                            disabled: currentPage === 1,
+                            children: 'Previous',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 189,
+                            columnNumber: 11,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'span',
+                          {
+                            className: 'pagination-info',
+                            children: [
+                              'Page ',
+                              currentPage,
+                              ' of',
+                              ' ',
+                              Math.ceil(universities.length / ITEM_PER_PAGE),
+                            ],
+                          },
+                          void 0,
+                          true,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 196,
+                            columnNumber: 11,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                        /*#__PURE__*/ (0,
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                          'jsxDEV'
+                        ])(
+                          'button',
+                          {
+                            className: 'next-button',
+                            onClick: handleNextPage,
+                            disabled:
+                              currentPage >=
+                              Math.ceil(universities.length / ITEM_PER_PAGE),
+                            children: 'Next',
+                          },
+                          void 0,
+                          false,
+                          {
+                            fileName:
+                              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                            lineNumber: 200,
+                            columnNumber: 11,
+                          },
+                          ('TURBOPACK compile-time value', void 0)
+                        ),
+                      ],
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName:
+                        '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                      lineNumber: 188,
+                      columnNumber: 9,
+                    },
+                    ('TURBOPACK compile-time value', void 0)
+                  ),
+                  selectedItems.length > 0 &&
+                    /*#__PURE__*/ (0,
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                      'jsxDEV'
+                    ])(
+                      'div',
+                      {
+                        className: 'flyout',
+                        children: [
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'span',
+                            {
+                              children: [
+                                selectedItems.length,
+                                ' items are selected',
+                              ],
+                            },
+                            void 0,
+                            true,
+                            {
+                              fileName:
+                                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                              lineNumber: 212,
+                              columnNumber: 13,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'button',
+                            {
+                              onClick: () =>
+                                dispatch(
+                                  (0,
+                                  __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$selectedItemsSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                                    'unselectAll'
+                                  ])()
+                                ),
+                              children: 'Unselect all',
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                              lineNumber: 213,
+                              columnNumber: 13,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'button',
+                            {
+                              onClick: () => downloadCSV(selectedItems),
+                              children: 'Download',
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                              lineNumber: 216,
+                              columnNumber: 13,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'a',
+                            {
+                              ref: downloadLinkRef,
+                              style: {
+                                display: 'none',
+                              },
+                              children: 'Download',
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                              lineNumber: 217,
+                              columnNumber: 13,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                        ],
+                      },
+                      void 0,
+                      true,
+                      {
+                        fileName:
+                          '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                        lineNumber: 211,
+                        columnNumber: 11,
+                      },
+                      ('TURBOPACK compile-time value', void 0)
+                    ),
+                ],
+              },
+              void 0,
+              true,
+              {
+                fileName:
+                  '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+                lineNumber: 166,
+                columnNumber: 7,
+              },
+              ('TURBOPACK compile-time value', void 0)
+            ),
+          },
+          void 0,
+          false,
+          {
+            fileName:
+              '[project]/src/components/ResultsContainer/ResultsContainer.tsx',
+            lineNumber: 165,
+            columnNumber: 5,
+          },
+          ('TURBOPACK compile-time value', void 0)
+        );
+      };
+      const __TURBOPACK__default__export__ = ResultsContainer;
+    },
+  '[project]/src/components/MainContainer/MainContainer.tsx [app-ssr] (ecmascript)':
+    (__turbopack_context__) => {
+      'use strict';
+
+      __turbopack_context__.s({
+        default: () => __TURBOPACK__default__export__,
+      });
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$SearchContainer$2f$SearchContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/components/SearchContainer/SearchContainer.tsx [app-ssr] (ecmascript)'
+        );
+      var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ResultsContainer$2f$ResultsContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+        __turbopack_context__.i(
+          '[project]/src/components/ResultsContainer/ResultsContainer.tsx [app-ssr] (ecmascript)'
+        );
+      ('use client');
+      const MainContainer = () => {
+        const params = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useParams'
+        ])();
+        const currentPage = parseInt(params?.page || '1', 10);
+        const showDetails = !!params?.id;
+        const [searchTerm, setSearchTerm] = (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useState'
+        ])('');
+        (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'useEffect'
+        ])(() => {
+          const term = localStorage.getItem('searchTerm') || '';
+          setSearchTerm(term);
+        }, []);
+        return /*#__PURE__*/ (0,
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'jsxDEV'
+        ])(
+          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+            'Fragment'
+          ],
+          {
+            children: [
+              /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                'div',
+                {
+                  className: 'main-container',
+                  children: [
+                    /*#__PURE__*/ (0,
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                      'jsxDEV'
+                    ])(
+                      'p',
+                      {
+                        className: 'app-description',
+                        children: [
+                          'Discover universities around the world! ',
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'br',
+                            {},
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/MainContainer/MainContainer.tsx',
+                              lineNumber: 24,
+                              columnNumber: 51,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                          'Enter the ',
+                          /*#__PURE__*/ (0,
+                          __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                            'jsxDEV'
+                          ])(
+                            'strong',
+                            {
+                              children: 'full',
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName:
+                                '[project]/src/components/MainContainer/MainContainer.tsx',
+                              lineNumber: 25,
+                              columnNumber: 21,
+                            },
+                            ('TURBOPACK compile-time value', void 0)
+                          ),
+                          ' name of a country and browse institutions easily.',
+                        ],
+                      },
+                      void 0,
+                      true,
+                      {
+                        fileName:
+                          '[project]/src/components/MainContainer/MainContainer.tsx',
+                        lineNumber: 23,
+                        columnNumber: 9,
+                      },
+                      ('TURBOPACK compile-time value', void 0)
+                    ),
+                    /*#__PURE__*/ (0,
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                      'jsxDEV'
+                    ])(
+                      'img',
+                      {
+                        src: '/graduation.png',
+                        alt: 'graduation',
+                      },
+                      void 0,
+                      false,
+                      {
+                        fileName:
+                          '[project]/src/components/MainContainer/MainContainer.tsx',
+                        lineNumber: 28,
+                        columnNumber: 9,
+                      },
+                      ('TURBOPACK compile-time value', void 0)
+                    ),
+                  ],
+                },
+                void 0,
+                true,
+                {
+                  fileName:
+                    '[project]/src/components/MainContainer/MainContainer.tsx',
+                  lineNumber: 22,
+                  columnNumber: 7,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+              /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$SearchContainer$2f$SearchContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                  'SearchContainer'
+                ],
+                {},
+                void 0,
+                false,
+                {
+                  fileName:
+                    '[project]/src/components/MainContainer/MainContainer.tsx',
+                  lineNumber: 30,
+                  columnNumber: 7,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+              /*#__PURE__*/ (0,
+              __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                'jsxDEV'
+              ])(
+                __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ResultsContainer$2f$ResultsContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+                  'default'
+                ],
+                {
+                  currentPage: currentPage,
+                  searchTerm: searchTerm || '',
+                  showDetails: showDetails,
+                },
+                void 0,
+                false,
+                {
+                  fileName:
+                    '[project]/src/components/MainContainer/MainContainer.tsx',
+                  lineNumber: 31,
+                  columnNumber: 7,
+                },
+                ('TURBOPACK compile-time value', void 0)
+              ),
+            ],
+          },
+          void 0,
+          true
+        );
+      };
+      const __TURBOPACK__default__export__ = MainContainer;
+    },
+  '[project]/app/page.tsx [app-ssr] (ecmascript)': (__turbopack_context__) => {
+    'use strict';
+
+    __turbopack_context__.s({
+      default: () => HomePage,
+    });
+    var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+      __turbopack_context__.i(
+        '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)'
+      );
+    var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$MainContainer$2f$MainContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ =
+      __turbopack_context__.i(
+        '[project]/src/components/MainContainer/MainContainer.tsx [app-ssr] (ecmascript)'
+      );
+    ('use client');
+    function HomePage() {
+      return /*#__PURE__*/ (0,
+      __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+        'jsxDEV'
+      ])(
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$MainContainer$2f$MainContainer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__[
+          'default'
+        ],
+        {},
+        void 0,
+        false,
+        {
+          fileName: '[project]/app/page.tsx',
+          lineNumber: 6,
+          columnNumber: 10,
+        },
+        this
+      );
+    }
+  },
+};
+
+//# sourceMappingURL=_55155d53._.js.map

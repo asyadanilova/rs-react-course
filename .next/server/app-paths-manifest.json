@@ -1,0 +1,4 @@
+{
+  "/[locale]/[page]/page": "app/[locale]/[page]/page.js",
+  "/api/generate-csv/route": "app/api/generate-csv/route.js"
+}

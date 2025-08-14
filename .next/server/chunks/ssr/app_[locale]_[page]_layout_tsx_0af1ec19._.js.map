@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/app/%5Blocale%5D/%5Bpage%5D/layout.tsx"],"sourcesContent":["export default function ResultsLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return (\n    <div className=\"results-layout\">\n      <main>{children}</main>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAAe,SAAS,cAAc,EACpC,QAAQ,EAGT;IACC,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;sBAAM;;;;;;;;;;;AAGb","debugId":null}}]
+}

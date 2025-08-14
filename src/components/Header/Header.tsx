@@ -1,45 +1,53 @@
-import { Link, NavLink } from 'react-router-dom';
+'use client';
+
 import './Header.scss';
-import { AppRoutes } from '../../routes/routes';
 import { useTheme } from '../../hooks/useTheme';
 import { BsSunFill, BsMoonFill } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
+import { createNavigation } from 'next-intl/navigation';
+import nextIntlConfig from '../../../next-intl.config';
 
 const Header = () => {
+  const t = useTranslations();
+  const { Link } = createNavigation(nextIntlConfig);
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const navButtons = () => (
     <ul className="nav_button">
       <li>
-        <NavLink to={AppRoutes.HOME_ROUTE} className="nav-link">
-          <i className="bi bi-house"></i> Home
-        </NavLink>
+        <Link href="/" className="nav-link">
+          <i className="bi bi-house"></i> {t('header.home')}
+        </Link>
       </li>
       <li>
-        <NavLink to={AppRoutes.ABOUT_ROUTE} className="nav-link">
-          <i className="bi bi-info-circle"></i> About
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={AppRoutes.LOGIN_ROUTE} className="nav-link">
-          <i className="bi bi-box-arrow-in-right"></i> Login
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={AppRoutes.REGISTRATION_ROUTE} className="nav-link">
-          <i className="bi bi-door-open"></i> Registration
-        </NavLink>
+        <Link href="/about" className="nav-link">
+          <i className="bi bi-info-circle"></i> {t('header.about')}
+        </Link>
       </li>
     </ul>
   );
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="header">
-      <Link to="/main" className="header__logo-link">
-        <img
-          src="./graduation-cap.png"
+      <Link href="/" className="header__logo-link">
+        <Image
+          src="/graduation-cap.png"
           alt="Site Icon"
           className="header__logo-icon"
+          width={32}
+          height={32}
         />
-        <span className="header__app-name">GlobalCampus</span>
+        <span className="header__app-name">{t('header.appName')}</span>
       </Link>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <nav>{navButtons()}</nav>
@@ -50,6 +58,7 @@ const Header = () => {
         >
           {theme === 'light' ? <BsSunFill /> : <BsMoonFill />}
         </div>
+        <LanguageSwitcher />
       </div>
     </header>
   );

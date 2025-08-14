@@ -1,0 +1,863 @@
+globalThis.__RSC_MANIFEST = globalThis.__RSC_MANIFEST || {};
+globalThis.__RSC_MANIFEST['/about/page'] = {
+  moduleLoading: { prefix: '', crossOrigin: null },
+  clientModules: {
+    '[project]/node_modules/next/dist/esm/client/components/layout-router.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/layout-router.js': {
+      id: '[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+      ],
+      async: false,
+    },
+    '[project]/node_modules/next/dist/esm/client/components/render-from-template-context.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/render-from-template-context.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/client-page.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/client-page.js': {
+      id: '[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+      ],
+      async: false,
+    },
+    '[project]/node_modules/next/dist/esm/client/components/client-segment.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/client-segment.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/client-segment.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/client-segment.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/http-access-fallback/error-boundary.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/http-access-fallback/error-boundary.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/http-access-fallback/error-boundary.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/http-access-fallback/error-boundary.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/lib/metadata/generate/icon-mark.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/lib/metadata/generate/icon-mark.js': {
+      id: '[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+      ],
+      async: false,
+    },
+    '[project]/node_modules/next/dist/esm/client/components/metadata/async-metadata.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/metadata/async-metadata.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/metadata/async-metadata.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/metadata/async-metadata.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/metadata/metadata-boundary.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/metadata/metadata-boundary.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/client/components/metadata/metadata-boundary.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/metadata/metadata-boundary.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/next-devtools/userspace/app/segment-explorer-node.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/esm/next-devtools/userspace/app/segment-explorer-node.js':
+      {
+        id: '[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        ],
+        async: false,
+      },
+    '[project]/app/layout.tsx <module evaluation>': {
+      id: '[project]/app/layout.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+      ],
+      async: false,
+    },
+    '[project]/app/layout.tsx': {
+      id: '[project]/app/layout.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+      ],
+      async: false,
+    },
+    '[project]/app/not-found.tsx <module evaluation>': {
+      id: '[project]/app/not-found.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        '/_next/static/chunks/_5b4f008e._.js',
+        '/_next/static/chunks/app_not-found_tsx_34f627b6._.js',
+      ],
+      async: false,
+    },
+    '[project]/app/not-found.tsx': {
+      id: '[project]/app/not-found.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        '/_next/static/chunks/_5b4f008e._.js',
+        '/_next/static/chunks/app_not-found_tsx_34f627b6._.js',
+      ],
+      async: false,
+    },
+    '[project]/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>':
+      {
+        id: '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+          '/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_34f627b6.js',
+        ],
+        async: false,
+      },
+    '[project]/node_modules/next/dist/client/components/builtin/global-error.js':
+      {
+        id: '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)',
+        name: '*',
+        chunks: [
+          '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+          '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+          '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+          '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+          '/_next/static/chunks/node_modules_5d92a5c3._.js',
+          '/_next/static/chunks/_610a48f1._.js',
+          '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+          '/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_34f627b6.js',
+        ],
+        async: false,
+      },
+    '[project]/app/about/page.tsx <module evaluation>': {
+      id: '[project]/app/about/page.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        '/_next/static/chunks/_1b2c718c._.js',
+        '/_next/static/chunks/app_about_page_tsx_34f627b6._.js',
+      ],
+      async: false,
+    },
+    '[project]/app/about/page.tsx': {
+      id: '[project]/app/about/page.tsx [app-client] (ecmascript)',
+      name: '*',
+      chunks: [
+        '/_next/static/chunks/node_modules_next_00ba5bf5._.js',
+        '/_next/static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+        '/_next/static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+        '/_next/static/chunks/node_modules_%40reduxjs_toolkit_dist_3b8977d5._.js',
+        '/_next/static/chunks/node_modules_5d92a5c3._.js',
+        '/_next/static/chunks/_610a48f1._.js',
+        '/_next/static/chunks/app_layout_tsx_68b267f5._.js',
+        '/_next/static/chunks/_1b2c718c._.js',
+        '/_next/static/chunks/app_about_page_tsx_34f627b6._.js',
+      ],
+      async: false,
+    },
+  },
+  ssrModuleMapping: {
+    '[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/layout-router.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/render-from-template-context.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/client-page.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/client-segment.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/client-segment.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/http-access-fallback/error-boundary.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/http-access-fallback/error-boundary.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/lib/metadata/generate/icon-mark.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/metadata/async-metadata.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/metadata/async-metadata.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/metadata/metadata-boundary.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/metadata/metadata-boundary.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/next-devtools/userspace/app/segment-explorer-node.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/app/layout.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/layout.tsx [app-ssr] (ecmascript)',
+        name: '*',
+        chunks: [
+          'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+          'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+          'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+          'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+          'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+          'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+          'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+          'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+          'server/chunks/ssr/node_modules_d178cbd3._.js',
+          'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+        ],
+        async: false,
+      },
+    },
+    '[project]/app/not-found.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/not-found.tsx [app-ssr] (ecmascript)',
+        name: '*',
+        chunks: [
+          'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+          'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+          'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+          'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+          'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+          'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+          'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+          'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+          'server/chunks/ssr/node_modules_d178cbd3._.js',
+          'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          'server/chunks/ssr/_9e9b4e46._.js',
+        ],
+        async: false,
+      },
+    },
+    '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-ssr] (ecmascript)',
+          name: '*',
+          chunks: [
+            'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+            'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+            'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+            'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+            'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+            'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+            'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+            'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+            'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+            'server/chunks/ssr/node_modules_d178cbd3._.js',
+            'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          ],
+          async: false,
+        },
+      },
+    '[project]/app/about/page.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/about/page.tsx [app-ssr] (ecmascript)',
+        name: '*',
+        chunks: [
+          'server/chunks/ssr/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4b71871f._.js',
+          'server/chunks/ssr/node_modules_next_dist_client_c5d845e8._.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_next-devtools_index_4258ed4e.js',
+          'server/chunks/ssr/node_modules_next_dist_compiled_ffb62315._.js',
+          'server/chunks/ssr/node_modules_next_dist_esm_b72f3b11._.js',
+          'server/chunks/ssr/node_modules_next_dist_22e1647b._.js',
+          'server/chunks/ssr/node_modules_next_image_2a5e651d.js',
+          'server/chunks/ssr/node_modules_react-icons_bs_index_mjs_5a462645._.js',
+          'server/chunks/ssr/node_modules_react-icons_lib_c05a4bdc._.js',
+          'server/chunks/ssr/node_modules_@reduxjs_toolkit_dist_8a5658ad._.js',
+          'server/chunks/ssr/node_modules_d178cbd3._.js',
+          'server/chunks/ssr/[root-of-the-server]__a6d44196._.js',
+          'server/chunks/ssr/_3b6a4095._.js',
+        ],
+        async: false,
+      },
+    },
+  },
+  edgeSSRModuleMapping: {},
+  rscModuleMapping: {
+    '[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/layout-router.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/render-from-template-context.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/client-page.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/client-segment.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/client-segment.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/http-access-fallback/error-boundary.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/http-access-fallback/error-boundary.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/lib/metadata/generate/icon-mark.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/metadata/async-metadata.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/metadata/async-metadata.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/client/components/metadata/metadata-boundary.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/client/components/metadata/metadata-boundary.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/esm/next-devtools/userspace/app/segment-explorer-node.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/app/layout.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/layout.tsx [app-rsc] (client reference proxy)',
+        name: '*',
+        chunks: [],
+        async: false,
+      },
+    },
+    '[project]/app/not-found.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/not-found.tsx [app-rsc] (client reference proxy)',
+        name: '*',
+        chunks: [],
+        async: false,
+      },
+    },
+    '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)':
+      {
+        '*': {
+          id: '[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-rsc] (client reference proxy)',
+          name: '*',
+          chunks: [],
+          async: false,
+        },
+      },
+    '[project]/app/about/page.tsx [app-client] (ecmascript)': {
+      '*': {
+        id: '[project]/app/about/page.tsx [app-rsc] (client reference proxy)',
+        name: '*',
+        chunks: [],
+        async: false,
+      },
+    },
+  },
+  edgeRscModuleMapping: {},
+  entryCSSFiles: {
+    '[project]/app/layout': [
+      { path: 'static/chunks/_4f89ab59._.css', inlined: false },
+    ],
+    '[project]/app/not-found': [
+      { path: 'static/chunks/_4f89ab59._.css', inlined: false },
+    ],
+    '[project]/node_modules/next/dist/client/components/builtin/global-error': [
+      { path: 'static/chunks/_4f89ab59._.css', inlined: false },
+    ],
+    '[project]/app/about/page': [
+      { path: 'static/chunks/_4f89ab59._.css', inlined: false },
+      {
+        path: 'static/chunks/src_pages_AboutPage_AboutPage_3bf7ae3f.css',
+        inlined: false,
+      },
+    ],
+  },
+  entryJSFiles: {
+    '[project]/app/layout': [
+      'static/chunks/node_modules_next_00ba5bf5._.js',
+      'static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+      'static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+      'static/chunks/node_modules_@reduxjs_toolkit_dist_3b8977d5._.js',
+      'static/chunks/node_modules_5d92a5c3._.js',
+      'static/chunks/_610a48f1._.js',
+      'static/chunks/app_layout_tsx_68b267f5._.js',
+    ],
+    '[project]/app/not-found': [
+      'static/chunks/node_modules_next_00ba5bf5._.js',
+      'static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+      'static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+      'static/chunks/node_modules_@reduxjs_toolkit_dist_3b8977d5._.js',
+      'static/chunks/node_modules_5d92a5c3._.js',
+      'static/chunks/_610a48f1._.js',
+      'static/chunks/app_layout_tsx_68b267f5._.js',
+      'static/chunks/_5b4f008e._.js',
+      'static/chunks/app_not-found_tsx_34f627b6._.js',
+    ],
+    '[project]/node_modules/next/dist/client/components/builtin/global-error': [
+      'static/chunks/node_modules_next_00ba5bf5._.js',
+      'static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+      'static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+      'static/chunks/node_modules_@reduxjs_toolkit_dist_3b8977d5._.js',
+      'static/chunks/node_modules_5d92a5c3._.js',
+      'static/chunks/_610a48f1._.js',
+      'static/chunks/app_layout_tsx_68b267f5._.js',
+      'static/chunks/node_modules_next_dist_client_components_builtin_global-error_34f627b6.js',
+    ],
+    '[project]/app/about/page': [
+      'static/chunks/node_modules_next_00ba5bf5._.js',
+      'static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js',
+      'static/chunks/node_modules_react-icons_lib_74ccc930._.js',
+      'static/chunks/node_modules_@reduxjs_toolkit_dist_3b8977d5._.js',
+      'static/chunks/node_modules_5d92a5c3._.js',
+      'static/chunks/_610a48f1._.js',
+      'static/chunks/app_layout_tsx_68b267f5._.js',
+      'static/chunks/_1b2c718c._.js',
+      'static/chunks/app_about_page_tsx_34f627b6._.js',
+    ],
+  },
+};

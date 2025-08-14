@@ -1,0 +1,3 @@
+{
+  "/api/generate-csv/route": "app/api/generate-csv/route.js"
+}
