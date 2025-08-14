@@ -1,6 +1,9 @@
 {
   "app": {
-    "[project]/app/[locale]/[page]/page": []
+    "[project]/app/[locale]/[page]/[id]/page": [],
+    "[project]/app/[locale]/[page]/page": [],
+    "[project]/app/[locale]/about/page": [],
+    "[project]/app/[locale]/page": []
   },
   "appUsingSizeAdjust": false,
   "pages": {},

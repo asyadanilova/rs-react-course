@@ -11,14 +11,16 @@ import '../../src/index.scss';
 const MESSAGES: Record<string, typeof en | typeof ru> = { en, ru };
 const SUPPORTED_LOCALES = ['en', 'ru'];
 
+interface ResultsLayoutProps {
+  children: React.ReactNode;
+  params: { locale: string };
+}
+
 export default function ResultsLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = React.use(params);
+}: ResultsLayoutProps) {
+  const { locale } = params;
   const safeLocale = SUPPORTED_LOCALES.includes(locale) ? locale : 'en';
   const messages = MESSAGES[safeLocale];
 

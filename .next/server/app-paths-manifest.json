@@ -1,4 +1,6 @@
 {
+  "/[locale]/[page]/[id]/page": "app/[locale]/[page]/[id]/page.js",
   "/[locale]/[page]/page": "app/[locale]/[page]/page.js",
-  "/api/generate-csv/route": "app/api/generate-csv/route.js"
+  "/[locale]/about/page": "app/[locale]/about/page.js",
+  "/[locale]/page": "app/[locale]/page.js"
 }

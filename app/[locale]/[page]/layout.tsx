@@ -16,9 +16,9 @@ export default function ResultsSectionLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 }) {
-  const { locale } = React.use(params);
+  const { locale } = params;
   const safeLocale = SUPPORTED_LOCALES.includes(locale) ? locale : 'en';
   const messages = MESSAGES[safeLocale];
 

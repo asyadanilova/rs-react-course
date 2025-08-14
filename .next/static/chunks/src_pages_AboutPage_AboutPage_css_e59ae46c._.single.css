@@ -36,7 +36,7 @@
   justify-content: stretch;
   align-items: center;
   padding: 20px;
-  transition: all 0.5s ease-in-out;
+  transition: all .5s ease-in-out;
   display: flex;
   position: relative;
   transform: translateY(20px);
@@ -49,7 +49,7 @@
 
 .team-member:hover {
   border-color: var(--primary-color);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
 }
 
 .member-photo {
@@ -69,8 +69,7 @@
   font-size: 1.2rem;
 }
 
-.member-bio,
-.member-contributions {
+.member-bio, .member-contributions {
   text-align: start;
   align-self: flex-start;
   margin: 10px 0;
