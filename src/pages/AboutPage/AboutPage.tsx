@@ -100,4 +100,4 @@ const About = (): JSX.Element => {
   );
 };
 
-export { About };
+export default About;
