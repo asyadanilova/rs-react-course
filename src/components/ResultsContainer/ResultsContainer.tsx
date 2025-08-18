@@ -144,7 +144,13 @@ const ResultsContainer: React.FC<{
     ) {
       return (
         <div className="error-container">
-          <Image src="/no-data.png" alt="No data" width={128} height={128} />
+          <Image
+            src="/no-data.png"
+            alt="No data"
+            width={128}
+            height={128}
+            unoptimized
+          />
           <p className="error-message">
             {t('results.noData', {
               defaultValue: 'No universities available to display.',

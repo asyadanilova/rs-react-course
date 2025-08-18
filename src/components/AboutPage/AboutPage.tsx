@@ -42,6 +42,7 @@ const About = (): JSX.Element => {
             style={{ width: '50px' }}
             width={50}
             height={50}
+            unoptimized
           />
         </Link>
       </header>
@@ -55,6 +56,7 @@ const About = (): JSX.Element => {
               className="member-photo"
               width={200}
               height={200}
+              unoptimized
             />
             <h2 className="member-name">{member.name}</h2>
             <h3 className="member-role">{member.role}</h3>

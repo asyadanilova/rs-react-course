@@ -18,6 +18,7 @@ export default function NotFound() {
         alt=""
         width={400}
         height={300}
+        unoptimized
       />
       <p>
         {t('notFound.description', {

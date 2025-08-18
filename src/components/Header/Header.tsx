@@ -46,6 +46,7 @@ const Header = () => {
           className="header__logo-icon"
           width={32}
           height={32}
+          unoptimized
         />
         <span className="header__app-name">{t('header.appName')}</span>
       </Link>
