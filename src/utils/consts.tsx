@@ -1,3 +1,4 @@
+'use client';
 import { createContext } from 'react';
 import en from '../../messages/en.json';
 import ru from '../../messages/ru.json';
@@ -33,4 +34,8 @@ export interface University {
 export interface OutletContext {
   universities: University[];
   handleCloseDetailsPage: () => void;
+}
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ru' }];
 }

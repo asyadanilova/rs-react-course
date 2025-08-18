@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/app/%5Blocale%5D/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation';\n\nexport default function HomePage({ params }: { params: { locale: string } }) {\n  redirect(`/${params.locale}/1`);\n  return null;\n}\n"],"names":[],"mappings":";;;AAAA;AAAA;;AAEe,SAAS,SAAS,EAAE,MAAM,EAAkC;IACzE,CAAA,GAAA,qLAAA,CAAA,WAAQ,AAAD,EAAE,CAAC,CAAC,EAAE,OAAO,MAAM,CAAC,EAAE,CAAC;IAC9B,OAAO;AACT","debugId":null}}]
-}

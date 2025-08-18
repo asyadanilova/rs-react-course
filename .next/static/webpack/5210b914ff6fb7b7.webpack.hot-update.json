@@ -1,5 +1,0 @@
-{
-  "c": ["app/page", "app/[page]/page", "app/[page]/[id]/page", "webpack"],
-  "r": [],
-  "m": []
-}

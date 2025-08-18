@@ -1,11 +1,1 @@
-{
-  "app": {
-    "[project]/rs-react-course/src/app/[locale]/[page]/[id]/page": [],
-    "[project]/rs-react-course/src/app/[locale]/[page]/page": [],
-    "[project]/rs-react-course/src/app/[locale]/about/page": [],
-    "[project]/rs-react-course/src/app/[locale]/page": []
-  },
-  "appUsingSizeAdjust": false,
-  "pages": {},
-  "pagesUsingSizeAdjust": false
-}
+{"pages":{},"app":{},"appUsingSizeAdjust":false,"pagesUsingSizeAdjust":false}

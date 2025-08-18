@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///turbopack:///[project]/src/pages/NotFoundPage/C:/Users/Asya_Danilova/Desktop/rs-react-course/src/pages/NotFoundPage/NotFoundPage.scss"],"sourcesContent":[".not-found-page {\n  text-align: center;\n  padding: 50px;\n}\n\n.not-found-page h1 {\n  font-size: 3rem;\n  color: var(--primary-color);\n}\n\nbutton {\n  background-color: var(--primary-color);\n  color: var(--background-color);\n}\n\n.not-found-image {\n  max-width: 20%;\n}\n\n.not-found-page p {\n  font-size: 1.5rem;\n  margin: 20px 0;\n}\n\n.not-found-page .home-link {\n  text-decoration: none;\n  color: var(--background-color);\n  font-weight: bold;\n  font-size: 1.25rem;\n}\n"],"names":[],"mappings":"AAAA;;;;;AAKA;;;;;AAKA;;;;;AAKA;;;;AAIA;;;;;AAKA","debugId":null}}]
-}

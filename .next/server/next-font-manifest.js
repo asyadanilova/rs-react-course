@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\n  \"app\": {\n    \"[project]/rs-react-course/src/app/[locale]/[page]/[id]/page\": [],\n    \"[project]/rs-react-course/src/app/[locale]/[page]/page\": [],\n    \"[project]/rs-react-course/src/app/[locale]/about/page\": [],\n    \"[project]/rs-react-course/src/app/[locale]/page\": []\n  },\n  \"appUsingSizeAdjust\": false,\n  \"pages\": {},\n  \"pagesUsingSizeAdjust\": false\n}"
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{},"appUsingSizeAdjust":false,"pagesUsingSizeAdjust":false}';

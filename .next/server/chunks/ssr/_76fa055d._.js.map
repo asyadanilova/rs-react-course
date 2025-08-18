@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/app/%5Blocale%5D/%5Bpage%5D/layout.tsx"],"sourcesContent":["export function SectionLayout({ children }: { children: React.ReactNode }) {\n  return <section>{children}</section>;\n}\n"],"names":[],"mappings":";;;;;AAAO,SAAS,cAAc,EAAE,QAAQ,EAAiC;IACvE,qBAAO,8OAAC;kBAAS;;;;;;AACnB","debugId":null}},
-    {"offset": {"line": 25, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4HACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0],"debugId":null}}]
-}
