@@ -39,6 +39,7 @@ const MainContainer = () => {
           alt="graduation"
           width={700}
           height={250}
+          unoptimized
         />
       </div>
       <SearchContainer />
