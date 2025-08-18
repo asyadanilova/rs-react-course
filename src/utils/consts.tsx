@@ -4,7 +4,7 @@ import ru from '../../messages/ru.json';
 
 export const ITEM_PER_PAGE = 15;
 export type Theme = 'light' | 'dark';
-export const MESSAGES: Record<string, typeof en> = {
+export const MESSAGES: Record<string, typeof en | typeof ru> = {
   en,
   ru,
 };
