@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/src/app/%5Blocale%5D/%5Bpage%5D/layout.tsx"],"sourcesContent":["import '../../../index.scss';\nimport { ThemeProvider } from '../../../context/ThemeContext';\nimport { NextIntlClientProvider } from 'next-intl';\nimport { ReactNode } from 'react';\nimport StoreProvider from './../../StoreProvider';\n\nexport default async function PageLayout({\n  children,\n}: {\n  children: ReactNode;\n}) {\n  return (\n    <StoreProvider>\n      <ThemeProvider>\n        <NextIntlClientProvider>{children}</NextIntlClientProvider>\n      </ThemeProvider>\n    </StoreProvider>\n  );\n}\n"],"names":[],"mappings":";;;;AACA;AACA;AAEA;;;;;;AAEe,eAAe,WAAW,EACvC,QAAQ,EAGT;IACC,qBACE,uQAAC,qJAAA,CAAA,UAAa;kBACZ,cAAA,uQAAC,wJAAA,CAAA,gBAAa;sBACZ,cAAA,uQAAC,2RAAA,CAAA,yBAAsB;0BAAE;;;;;;;;;;;;;;;;AAIjC","debugId":null}}]
+}

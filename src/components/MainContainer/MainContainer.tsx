@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchTerm } from '@/store/searchSlice';
+import { setSearchTerm } from '@/lib/searchSlice';
 import { RootState } from '@/store/store';
 import { SearchContainer } from '../SearchContainer/SearchContainer';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';

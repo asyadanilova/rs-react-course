@@ -1,7 +1,7 @@
 {
   "pages": {},
   "app": {
-    "[project]/app/[locale]/page": []
+    "[project]/rs-react-course/src/app/[locale]/page": []
   },
   "appUsingSizeAdjust": false,
   "pagesUsingSizeAdjust": false

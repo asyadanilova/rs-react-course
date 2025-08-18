@@ -44,7 +44,7 @@
 .nav-link {
   color: var(--text-color);
   text-decoration: none;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .nav-link:hover {

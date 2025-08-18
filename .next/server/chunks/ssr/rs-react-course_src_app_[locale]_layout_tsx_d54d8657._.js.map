@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/src/app/%5Blocale%5D/layout.tsx"],"sourcesContent":["import '../../index.scss';\nimport { ThemeProvider } from '../../context/ThemeContext';\nimport { NextIntlClientProvider } from 'next-intl';\nimport { ReactNode } from 'react';\nimport { getLocale } from 'next-intl/server';\nimport StoreProvider from './../StoreProvider';\n\nexport default async function RootLayout({\n  children,\n}: {\n  children: ReactNode;\n}) {\n  const locale = await getLocale();\n\n  return (\n    <StoreProvider>\n      <ThemeProvider>\n        <NextIntlClientProvider locale={locale}>\n          {children}\n        </NextIntlClientProvider>\n      </ThemeProvider>\n    </StoreProvider>\n  );\n}\n"],"names":[],"mappings":";;;;AACA;AACA;AAEA;AACA;;;;;;;AAEe,eAAe,WAAW,EACvC,QAAQ,EAGT;IACC,MAAM,SAAS,MAAM,CAAA,GAAA,qQAAA,CAAA,YAAS,AAAD;IAE7B,qBACE,uQAAC,qJAAA,CAAA,UAAa;kBACZ,cAAA,uQAAC,wJAAA,CAAA,gBAAa;sBACZ,cAAA,uQAAC,2RAAA,CAAA,yBAAsB;gBAAC,QAAQ;0BAC7B;;;;;;;;;;;;;;;;AAKX","debugId":null}}]
+}

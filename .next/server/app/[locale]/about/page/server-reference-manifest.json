@@ -1,4 +1,16 @@
 {
-  "node": {},
+  "node": {
+    "7fac6f12ca0fe7cd194ba95e8ce0b41b290a8e825b": {
+      "workers": {
+        "app/[locale]/about/page": {
+          "moduleId": "[project]/rs-react-course/.next-internal/server/app/[locale]/about/page/actions.js { ACTIONS_MODULE0 => \"[project]/rs-react-course/src/i18n/setCookie.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/[locale]/about/page": "action-browser"
+      }
+    }
+  },
   "edge": {}
 }

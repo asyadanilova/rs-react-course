@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { setSearchTerm } from '@/store/searchSlice';
+import { RootState } from '../../lib/store';
+import { setSearchTerm } from '@/lib/searchSlice';
 import './SearchContainer.scss';
 
 const SearchContainer = () => {

@@ -1,5 +1,27 @@
 {
-  "node": {},
+  "node": {
+    "7fac6f12ca0fe7cd194ba95e8ce0b41b290a8e825b": {
+      "workers": {
+        "app/[locale]/[page]/[id]/page": {
+          "moduleId": "[project]/rs-react-course/.next-internal/server/app/[locale]/[page]/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/rs-react-course/src/i18n/setCookie.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        },
+        "app/[locale]/[page]/page": {
+          "moduleId": "[project]/rs-react-course/.next-internal/server/app/[locale]/[page]/page/actions.js { ACTIONS_MODULE0 => \"[project]/rs-react-course/src/i18n/setCookie.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        },
+        "app/[locale]/about/page": {
+          "moduleId": "[project]/rs-react-course/.next-internal/server/app/[locale]/about/page/actions.js { ACTIONS_MODULE0 => \"[project]/rs-react-course/src/i18n/setCookie.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/[locale]/[page]/[id]/page": "action-browser",
+        "app/[locale]/[page]/page": "action-browser",
+        "app/[locale]/about/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
   "encryptionKey": "QFK1sx2TNPGYVWWyqWxPyWcLvW411gm9f4iJaZMjfRY="
 }

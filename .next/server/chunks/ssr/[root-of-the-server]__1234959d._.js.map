@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Asya_Danilova/Desktop/rs-react-course/src/app/%5Blocale%5D/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation';\n\nexport default function HomePage() {\n  redirect('/en/1');\n  return null;\n}\n"],"names":[],"mappings":";;;AAAA;AAAA;;AAEe,SAAS;IACtB,CAAA,GAAA,8MAAA,CAAA,WAAQ,AAAD,EAAE;IACT,OAAO;AACT","debugId":null}}]
+}

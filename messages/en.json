@@ -27,7 +27,8 @@
     "page": "Page",
     "noWebSite": "No Web Site",
     "of": "of",
-    "selectedItems": "Selected Items"
+    "selectedItems": "Selected Items",
+    "loading": "Loading universities...Please wait."
   },
   "detailsPage": {
     "close": "Close",

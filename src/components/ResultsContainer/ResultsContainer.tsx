@@ -4,75 +4,106 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  useSearchUniversitiesQuery,
-  useGetUniversitiesQuery,
-} from '../../services/university';
-import {
   selectItem,
   unselectItem,
   unselectAll,
-} from '../../store/selectedItemsSlice';
-import { RootState } from '@/store/store';
+} from '../../lib/selectedItemsSlice';
+import { RootState } from '../../lib/store';
 import DetailsPage from '../DetailsPage/DetailsPage';
-import './/ResultsContainer.css';
-import { setSearchTerm } from '@/store/searchSlice';
+import './ResultsContainer.css';
+import { setSearchTerm } from '@/lib/searchSlice';
 import { ITEM_PER_PAGE, University } from '@/utils/consts';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { getAllUniversities } from '@/api/getAllUniversities';
+import { searchUniversities } from '@/api/searchUniversities';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const ResultsContainer: React.FC<{
   currentPage: number;
   showDetails: boolean;
 }> = ({ currentPage, showDetails }) => {
   const t = useTranslations();
-  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const [searchTerm, setSearchTermLocal] = useLocalStorage('searchTerm', '');
   const router = useRouter();
   const dispatch = useDispatch();
   const params = useParams();
-  const id = params && typeof params.id === 'string' ? params.id : undefined;
+  const id = typeof params?.id === 'string' ? params.id : undefined;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
   const [searchKey, setSearchKey] = useState(0);
-
-  const searchUniversitiesResult = useSearchUniversitiesQuery(
-    { country: searchTerm, searchKey },
-    { refetchOnMountOrArgChange: true, skip: !searchTerm }
-  );
-  const getUniversitiesResult = useGetUniversitiesQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-    skip: !!searchTerm,
-  });
-
-  const universities =
-    searchTerm && searchUniversitiesResult.data
-      ? searchUniversitiesResult.data
-      : getUniversitiesResult.data || [];
-
-  const isLoading = searchTerm
-    ? searchUniversitiesResult.isLoading
-    : getUniversitiesResult.isLoading;
-
-  const error = searchTerm
-    ? searchUniversitiesResult.error
-    : getUniversitiesResult.error;
-
-  const refetch = searchTerm
-    ? searchUniversitiesResult.refetch
-    : getUniversitiesResult.refetch;
-
+  const [universities, setLocalUniversities] = useState<University[]>([]);
   const [customIsLoading, setCustomIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        let data: University[];
+        if (!searchTerm.trim()) {
+          data = await getAllUniversities();
+        } else {
+          data = await searchUniversities(searchTerm.trim());
+        }
+        setLocalUniversities(data);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [searchKey, searchTerm]);
 
   useEffect(() => {
     const handler = () => {
       const term = localStorage.getItem('searchTerm') || '';
-      setSearchTerm(term);
+      setSearchTermLocal(term);
+      dispatch(setSearchTerm(term));
       setSearchKey((k) => k + 1);
     };
     window.addEventListener('searchTermUpdated', handler);
     return () => window.removeEventListener('searchTermUpdated', handler);
-  }, []);
+  }, [dispatch, setSearchTermLocal]);
+
+  const locale =
+    params && typeof params.locale === 'string' ? params.locale : 'en';
+
+  const handleSelectUniversity = (university: University) => {
+    router.push(`/${locale}/${currentPage}/${university.domains[0]}`);
+  };
+
+  const handleCloseDetailsPage = () => {
+    router.push(`/${locale}/${currentPage}`);
+  };
+
+  const paginatedUniversities = universities.slice(
+    (currentPage - 1) * ITEM_PER_PAGE,
+    currentPage * ITEM_PER_PAGE
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(universities.length / ITEM_PER_PAGE)) {
+      router.push(`/${locale}/${currentPage + 1}`);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      router.push(`/${locale}/${currentPage - 1}`);
+    }
+  };
+
+  const handleRefresh = () => {
+    setCustomIsLoading(true);
+    setTimeout(() => setCustomIsLoading(false), 1000);
+    setSearchKey((k) => k + 1);
+  };
 
   const downloadCSV = async (items: University[]) => {
     try {
@@ -106,40 +137,6 @@ const ResultsContainer: React.FC<{
     }
   };
 
-  const locale =
-    params && typeof params.locale === 'string' ? params.locale : 'en';
-
-  const handleSelectUniversity = (university: University) => {
-    router.push(`/${locale}/${currentPage}/${university.domains[0]}`);
-  };
-
-  const handleCloseDetailsPage = () => {
-    router.push(`/${locale}/${currentPage}`);
-  };
-
-  const paginatedUniversities = universities.slice(
-    (currentPage - 1) * ITEM_PER_PAGE,
-    currentPage * ITEM_PER_PAGE
-  );
-
-  const handleNextPage = () => {
-    if (currentPage < Math.ceil(universities.length / ITEM_PER_PAGE)) {
-      router.push(`/${locale}/${currentPage + 1}`);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      router.push(`/${locale}/${currentPage - 1}`);
-    }
-  };
-
-  const handleRefresh = () => {
-    setCustomIsLoading(true);
-    setTimeout(() => setCustomIsLoading(false), 1000);
-    refetch();
-  };
-
   const renderUniversitiesList = (): JSX.Element[] | JSX.Element => {
     if (
       !Array.isArray(paginatedUniversities) ||
@@ -147,8 +144,12 @@ const ResultsContainer: React.FC<{
     ) {
       return (
         <div className="error-container">
-          <Image src="/no-data.png" alt="No data" />
-          <p className="error-message">No universities available to display.</p>
+          <Image src="/no-data.png" alt="No data" width={128} height={128} />
+          <p className="error-message">
+            {t('results.noData', {
+              defaultValue: 'No universities available to display.',
+            })}
+          </p>
         </div>
       );
     }
@@ -173,7 +174,8 @@ const ResultsContainer: React.FC<{
             checked={isSelected}
             onClick={(e) => e.stopPropagation()}
             onChange={(e) => {
-              if (e.target.checked) dispatch(selectItem(university));
+              if ((e.target as HTMLInputElement).checked)
+                dispatch(selectItem(university));
               else dispatch(unselectItem(university.domains[0]));
             }}
           />
@@ -192,10 +194,14 @@ const ResultsContainer: React.FC<{
     });
   };
 
-  if (isLoading || customIsLoading) {
+  if (loading || customIsLoading) {
     return (
       <div className="loader-container">
-        <p className="loader-message">Loading universities, please wait...</p>
+        <p className="loader-message">
+          {t('results.loading', {
+            defaultValue: 'Loading universities, please wait...',
+          })}
+        </p>
       </div>
     );
   }

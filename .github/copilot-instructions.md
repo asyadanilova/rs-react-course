@@ -5,8 +5,8 @@
 - This is a React + TypeScript project using **Next.js** for development and Vitest for testing.
 - Main app code is in `src/`, organized by feature: `components/`, `hooks/`, `pages/`, `services/`, `store/`, `test-utils/`, `utils/`.
 - Routing is handled via **Next.js file-based routing** in `src/pages/`.
-- State management uses Redux Toolkit (`src/store/`), with **RTK Query** for data fetching (see `src/services/university.tsx`).
-- There is **no `api/` folder**; all API queries are defined in RTK Query services.
+- State management uses Redux Toolkit (`src/store/`).
+- API folder is `src/api/`.
 
 ## Developer Workflows
 
@@ -20,7 +20,6 @@
 
 - Tests are colocated with source files, named `*.test.tsx`.
 - Use `@testing-library/react` for component tests.
-- **Mock RTK Query endpoints** from `src/services/university.tsx` in tests.
 - Use Next.js's `next/router` mocks for route-dependent tests.
 - Use `vi.spyOn` for spying on functions and `vi.fn()` for creating mock functions.
 - Use `eslint.config.js` for linting rules and ensure code quality. For example, ensure no `any` types are used in the codebase.
@@ -37,15 +36,15 @@
 
 ## Integration Points
 
-- External API: University data via RTK Query service (`src/services/university.tsx`).
 - Redux store slices in `src/store/`.
 - Custom hooks in `src/hooks/`.
 - Shared assets in `src/assets/`.
+- API functions in `src/api/`.
 
 ## Examples
 
 - For a new paginated list, follow the pattern in `ResultsContainer.tsx` and its test.
-- For new API integrations, add endpoints to `src/services/university.tsx` and mock them in tests.
+- For new API integrations, add endpoints to `src/api/` and mock them in tests.
 - For new pages, add to `src/pages/` using Next.js conventions.
 
 ---
