@@ -1,0 +1,93 @@
+h1 {
+    font-size: x-large;
+    text-align: center;
+    color: var(--header-color);
+}
+
+fieldset {
+    border: none;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    color: var(--input-text-color);
+    background-color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: var(--text-font-size);
+    font-family: var(--font-family);
+}
+input[type="radio"],
+input[type="checkbox"] {
+    display: inline;
+    width: 10%;
+}
+select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--input-text-color);
+    font-size: var(--text-font-size);
+}
+
+label {
+    font-size: 15px;
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px;
+    border: none;
+    color: var(--button-text-color);
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    width: 40%;
+    font-size: 16px;
+}
+textarea {
+    resize: none;
+    width: 98%;
+    min-height: 100px;
+    max-height: 150px;
+}
+.autocomplete-dropdown {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border-color-light);
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.autocomplete-dropdown li {
+  padding: 10px;
+  background-color: var(--dropdown-bg-color);
+  color: var(--text-color);
+  font-size: var(--text-font-size);
+  font-family: var(--font-family);
+}
+
+.autocomplete-dropdown li:hover {
+  background-color: var(--dropdown-hover-bg-color);
+}
+.error {
+  color: var(--error-color);
+  font-size: 0.8em;
+  line-height: 0.8rem;
+  margin: 5px 0;
+}

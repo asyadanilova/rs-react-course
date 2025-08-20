@@ -1,0 +1,106 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --header-color: #f2c057;
+  --border-color: #fffafa;
+  --label-color: #f2c057;
+  --button-text-color: #fffafa;
+  --button-bg-color: #486824;
+  --dropdown-bg-color: #4c3f54;
+  --error-color: #d13525;
+  --text-color: #fffafa;
+  --input-text-color: #4c3f54;
+  --background-color: #4c3f54;
+  --font-family: 'Roboto', sans-serif;
+  --header-font-size: 4.2em;
+  --text-font-size: 1em;
+  --letter-spacing: 0.05em;
+  --modal-overlay-bg: #3c3342;
+  --modal-content-bg: #4c3f54d2;
+  --modal-close-btn-bg: #d13525;
+  --modal-close-btn-color: #d13525;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+}
+
+.title {
+  font-size: var(--header-font-size);
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: var(--text-font-size);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--modal-content-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--modal-shadow-color);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.open-modal-btn {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal-close-btn {
+  color: var(--modal-close-btn-color);
+  background-color: transparent;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: -10px;
+  right: 10px;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus,
+.modal-close-btn:focus-visible {
+  outline: none;
+}
