@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schema, type IForm } from "../../utils/types";
 
 const Form = ({ onSubmitSuccess }: { onSubmitSuccess: (data: IForm) => void }): JSX.Element => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<IForm>({
+    const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<IForm>({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
@@ -103,7 +103,7 @@ const Form = ({ onSubmitSuccess }: { onSubmitSuccess: (data: IForm) => void }): 
                 </select>
                 {errors.country && <p className={styles.error}>{errors.country.message}</p>}
 
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={!isValid} className={`${styles.button} ${!isValid ? styles['button:disabled'] : ''}`}>Submit</button>
                 <button type="reset" onClick={() => reset()}>Reset</button>
             </form>
         </fieldset>

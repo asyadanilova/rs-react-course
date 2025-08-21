@@ -2,6 +2,7 @@ import styles from '../../styles/UncontrolledForm.module.css';
 import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { schema, type IForm } from '../../utils/types';
+import { toBase64 } from '../../utils/toBase64';
 
 const UncontrolledForm = ({ onSubmitSuccess }: { onSubmitSuccess: (data: IForm) => void }) => {
     const countries = useSelector((state: { countries: { countries: string[] } }) => state.countries.countries);
@@ -33,11 +34,20 @@ const UncontrolledForm = ({ onSubmitSuccess }: { onSubmitSuccess: (data: IForm) 
         setShowDropdown(false);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         formData.set('country', searchCountry);
+
         const formObject = Object.fromEntries(formData.entries());
+
+        const imageFile = formData.get('uploadImage') as File;
+        if (imageFile && imageFile.size > 0) {
+            formObject.uploadImage = await toBase64(imageFile);
+        } else {
+            delete formObject.uploadImage;
+        }
+
         const result = schema.safeParse(formObject);
         if (!result.success) {
             const fieldErrors: Record<string, string> = {};
@@ -45,7 +55,6 @@ const UncontrolledForm = ({ onSubmitSuccess }: { onSubmitSuccess: (data: IForm) 
                 fieldErrors[String(issue.path[0])] = issue.message;
             });
             setErrors(fieldErrors);
-            console.error("Validation errors:", fieldErrors);
         } else {
             setErrors({});
             onSubmitSuccess(result.data);

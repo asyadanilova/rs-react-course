@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 vi.mock('react-dom', async () => {
     const actual = await vi.importActual<any>('react-dom');
@@ -32,6 +34,10 @@ vi.mock('./components/UncontrolledForm/UncontrolledForm', () => ({
     ),
 }));
 
+const renderWithProviders = (component: React.ReactElement) => {
+    return render(<Provider store={store}>{component}</Provider>);
+};
+
 describe('App', () => {
     beforeEach(() => {
         const modalRoot = document.createElement('div');
@@ -44,37 +50,37 @@ describe('App', () => {
     });
 
     it('renders title and buttons', () => {
-        render(<App />);
+        renderWithProviders(<App />);
         expect(screen.getByText(/Complete Forms/i)).toBeInTheDocument();
         expect(screen.getByText(/Open Uncontrolled Form/i)).toBeInTheDocument();
         expect(screen.getByText(/Open Controlled Form/i)).toBeInTheDocument();
     });
 
     it('opens uncontrolled form modal when button is clicked', () => {
-        render(<App />);
+        renderWithProviders(<App />);
         fireEvent.click(screen.getByText(/Open Uncontrolled Form/i));
         expect(screen.getByText(/^Uncontrolled$/i)).toBeInTheDocument();
     });
 
     it('opens controlled form modal when button is clicked', () => {
-        render(<App />);
+        renderWithProviders(<App />);
         fireEvent.click(screen.getByText(/Open Controlled Form/i));
         expect(screen.getByText(/^Controlled$/i)).toBeInTheDocument();
     });
 
     it('closes modal when close button is clicked', () => {
-        render(<App />);
+        renderWithProviders(<App />);
         fireEvent.click(screen.getByText(/Open Controlled Form/i));
         const closeBtn = screen.getAllByRole('button').find(btn => btn.querySelector('.bi-x-circle'));
         expect(closeBtn).toBeInTheDocument();
         if (closeBtn) {
-            fireEvent.click(closeBtn.parentElement!);
+            fireEvent.click(closeBtn);
         }
-        expect(screen.queryByText(/Name/i)).not.toBeInTheDocument();
+        expect(screen.queryByText(/^Controlled$/i)).not.toBeInTheDocument();
     });
 
     it('shows Results after form submission', async () => {
-        render(<App />);
+        renderWithProviders(<App />);
         fireEvent.click(screen.getByText(/Open Controlled Form/i));
 
         fireEvent.click(screen.getByText(/Submit Mock Form/i));
@@ -86,7 +92,7 @@ describe('App', () => {
     });
 
     it('shows Results after uncontrolled form submission', async () => {
-        render(<App />);
+        renderWithProviders(<App />);
         fireEvent.click(screen.getByText(/Open Uncontrolled Form/i));
         fireEvent.click(screen.getByText(/Submit Mock Uncontrolled Form/i));
 

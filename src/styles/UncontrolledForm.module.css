@@ -59,6 +59,13 @@ button {
     width: 40%;
     font-size: 16px;
 }
+
+.button:disabled {
+    background-color: var(--button-disabled-bg-color);
+    color: var(--button-disabled-text-color);
+    cursor: not-allowed;
+}
+
 textarea {
     resize: none;
     width: 98%;
@@ -77,7 +84,7 @@ textarea {
 .autocomplete-dropdown li {
   padding: 10px;
   background-color: var(--dropdown-bg-color);
-  color: var(--text-color);
+  color: var(--input-text-color);
   font-size: var(--text-font-size);
   font-family: var(--font-family);
 }
@@ -85,6 +92,7 @@ textarea {
 .autocomplete-dropdown li:hover {
   background-color: var(--dropdown-hover-bg-color);
 }
+
 .error {
   color: var(--error-color);
   font-size: 0.8em;

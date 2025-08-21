@@ -22,7 +22,7 @@ export const schema = z.object({
   confirmPassword: z.string(),
   gender: z.enum(["male", "female", "unspecified"]),
   terms: z.boolean().optional(),
-  uploadImage: z.instanceof(File).optional().or(z.instanceof(FileList).optional()),
+  uploadImage: z.instanceof(File).optional().or(z.instanceof(FileList).optional()).or(z.string().optional()),
   country: z.string().min(2, "Country must be selected"),
 }).refine((values) => values.password === values.confirmPassword, {
   message: "Passwords don't match",
@@ -37,6 +37,6 @@ export type IForm = {
     confirmPassword: string;
     gender: "male" | "female" | "unspecified";
     terms?: boolean;
-    uploadImage?: File | FileList;
+    uploadImage?: string | File | FileList;
     country: string;
 }

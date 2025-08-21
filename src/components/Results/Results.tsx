@@ -1,5 +1,5 @@
-import type { JSX } from "react";
 import { useState, useEffect } from "react";
+import type { JSX } from "react";
 import type { IForm } from "../../utils/types";
 import styles from '../../styles/Results.module.css';
 
@@ -7,22 +7,33 @@ const Results = ({ data }: { data: IForm }): JSX.Element => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
+        let url: string | null = null;
         let file: File | null = null;
+
         if (data.uploadImage) {
-            if ('length' in data.uploadImage && data.uploadImage.length > 0) {
-                file = data.uploadImage[0];
+            if (typeof data.uploadImage === 'string') {
+                url = data.uploadImage;
             } else if (data.uploadImage instanceof File) {
                 file = data.uploadImage;
+            } else if (data.uploadImage instanceof FileList && data.uploadImage.length > 0) {
+                file = data.uploadImage[0];
             }
         }
 
         if (file) {
-            const newUrl = URL.createObjectURL(file);
-            setImageUrl(newUrl);
-            return () => {
-                URL.revokeObjectURL(newUrl);
-            };
+            url = URL.createObjectURL(file);
+            setImageUrl(url);
+        } else if (url) {
+            setImageUrl(url);
+        } else {
+            setImageUrl(null);
         }
+
+        return () => {
+            if (url && file) {
+                URL.revokeObjectURL(url);
+            }
+        };
     }, [data.uploadImage]);
 
     return (
@@ -53,7 +64,11 @@ const Results = ({ data }: { data: IForm }): JSX.Element => {
                 <li className={styles.item}>
                     <strong className={styles.label}>Image Preview:</strong>
                     {imageUrl ? (
-                        <img src={imageUrl} alt="Uploaded preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                        <img
+                            src={imageUrl}
+                            alt="Uploaded preview"
+                            style={{ maxWidth: '200px', maxHeight: '200px' }}
+                        />
                     ) : (
                         'No file uploaded'
                     )}

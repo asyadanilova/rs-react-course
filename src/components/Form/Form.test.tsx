@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import Form from "./Form";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -25,13 +26,18 @@ describe("Form component", () => {
         expect(screen.getByRole("button", { name: /Reset/i })).toBeInTheDocument();
     });
 
-    it("shows validation errors on submit with empty fields", async () => {
+    it("shows validation errors for invalid input", async () => {
         render(<Form onSubmitSuccess={onSubmitSuccess} />);
-        fireEvent.click(screen.getByRole("button", { name: /Submit/i }));
+
+        expect(screen.getByRole("button", { name: /Submit/i })).toBeDisabled();
+
+        const nameInput = screen.getByLabelText(/Name/i);
+        fireEvent.change(nameInput, { target: { value: "j" } });
 
         await waitFor(() => {
-            expect(screen.getAllByText(/required/i).length).toBeGreaterThan(0);
+            expect(screen.getByText(/Name must start with a capital letter/i)).toBeInTheDocument();
         });
+
         expect(onSubmitSuccess).not.toHaveBeenCalled();
     });
 
@@ -46,6 +52,14 @@ describe("Form component", () => {
         fireEvent.change(screen.getByLabelText(/^Gender$/i), { target: { value: "male" } });
         fireEvent.click(screen.getByLabelText(/I accept the terms and conditions/i));
         fireEvent.change(screen.getByLabelText(/^Country$/i), { target: { value: "United States" } });
+
+        const file = new File(['dummy'], 'test.png', { type: 'image/png' });
+        const fileInput = screen.getByLabelText(/Upload Image/i);
+        await userEvent.upload(fileInput, file);
+
+        await waitFor(() => {
+            expect(screen.getByRole("button", { name: /Submit/i })).toBeEnabled();
+        });
 
         fireEvent.click(screen.getByRole("button", { name: /Submit/i }));
 

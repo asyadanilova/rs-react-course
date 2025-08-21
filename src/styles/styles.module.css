@@ -6,7 +6,7 @@
   --label-color: #f2c057;
   --button-text-color: #fffafa;
   --button-bg-color: #486824;
-  --dropdown-bg-color: #4c3f54;
+  --dropdown-bg-color: #fffafa;
   --error-color: #d13525;
   --text-color: #fffafa;
   --input-text-color: #4c3f54;
@@ -19,6 +19,9 @@
   --modal-content-bg: #4c3f54d2;
   --modal-close-btn-bg: #d13525;
   --modal-close-btn-color: #d13525;
+  --button-disabled-bg-color: #4868247e;
+  --button-disabled-text-color: #fffafaa9;
+  --dropdown-hover-bg-color: #fffafaa9;
 }
 
 body {
