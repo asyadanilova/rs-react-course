@@ -1,3 +1,5 @@
+'use client';
+
 import { Theme, ThemeContext } from '../utils/consts';
 import React, { useState, useEffect } from 'react';
 

@@ -1,18 +1,24 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../lib/store';
+import { setSearchTerm } from '@/lib/searchSlice';
 import './SearchContainer.scss';
 
 const SearchContainer = () => {
-  const [searchTerm, setSearchTerm] = React.useState(
-    localStorage.getItem('searchTerm') || ''
-  );
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const [inputTerm, setInputTerm] = useState(searchTerm);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setInputTerm(event.target.value);
   };
 
   const handleSearch = () => {
-    const normalized = searchTerm.toLowerCase().trim();
-    localStorage.setItem('searchTerm', normalized);
+    const normalizedTerm = inputTerm.toLowerCase().trim();
+    localStorage.setItem('searchTerm', normalizedTerm);
+    dispatch(setSearchTerm(normalizedTerm));
     window.dispatchEvent(new Event('searchTermUpdated'));
   };
 
@@ -21,7 +27,7 @@ const SearchContainer = () => {
       <div className="search__input">
         <input
           type="text"
-          value={searchTerm}
+          value={inputTerm}
           onChange={handleInputChange}
           placeholder="Enter your request..."
           className="search-input"

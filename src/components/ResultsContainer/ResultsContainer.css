@@ -14,6 +14,9 @@
 
 .loader-container {
   margin: auto;
+  height: 30vh;
+  text-align: center;
+  align-content: center;
 }
 
 .master-container {
