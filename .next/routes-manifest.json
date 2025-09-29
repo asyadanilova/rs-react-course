@@ -1,0 +1,95 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [
+      {
+        "source": "/api/:path*",
+        "destination": "https://react-app-danilovaasya.netlify.app/api/:path*",
+        "regex": "^/api(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+      }
+    ],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/[locale]",
+      "regex": "^/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/about",
+      "regex": "^/([^/]+?)/about(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/about(?:/)?$"
+    },
+    {
+      "page": "/[locale]/[page]",
+      "regex": "^/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale",
+        "nxtPpage": "nxtPpage"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/(?<nxtPpage>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/[page]/[id]",
+      "regex": "^/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale",
+        "nxtPpage": "nxtPpage",
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/(?<nxtPpage>[^/]+?)/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
