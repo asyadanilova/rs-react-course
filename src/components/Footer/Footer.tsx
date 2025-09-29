@@ -1,13 +1,14 @@
-import React from 'react';
+'use client';
+
+import { useTranslations } from 'next-intl';
 import './Footer.scss';
 
 const Footer = () => {
-  const year = new Date().getFullYear();
-
+  const t = useTranslations();
   return (
     <footer className="footer">
       <p className="team-text">
-        Developed with ❤️ by:{' '}
+        {t('footer.team')}:{' '}
         <a
           href="https://github.com/AsyaDanilova"
           target="_blank"
@@ -17,11 +18,9 @@ const Footer = () => {
         </a>
       </p>
       <p data-testid="year-test">
-        &copy; {year} My University Search. All rights reserved.
+        &copy; 2025 My University Search. {t('footer.copyright')}
       </p>
-      <small>
-        Powered by Open APIs. Data may not be accurate for all universities.
-      </small>
+      <small>{t('footer.poweredBy')}</small>
     </footer>
   );
 };

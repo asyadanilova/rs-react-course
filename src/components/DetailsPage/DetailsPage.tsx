@@ -1,36 +1,55 @@
-import { useOutletContext, useParams } from 'react-router-dom';
+'use client';
+import { useTranslations } from 'next-intl';
+import { notFound } from 'next/navigation';
+import React from 'react';
 
-const DetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { universities, handleCloseDetailsPage } =
-    useOutletContext<OutletContext>();
+type University = {
+  name: string;
+  country: string;
+  domains: string[];
+  web_pages: string[];
+};
 
+interface DetailsPageProps {
+  universities: University[];
+  id: string;
+  handleCloseDetailsPage: () => void;
+}
+
+const DetailsPage: React.FC<DetailsPageProps> = ({
+  universities,
+  id,
+  handleCloseDetailsPage,
+}) => {
+  const t = useTranslations();
   if (!universities || universities.length === 0 || !id) {
     return <p>No university data available</p>;
   }
 
   const selectedUniversity = universities.find((u: University) =>
-    u.domains.includes(id || '')
+    u.domains.includes(id)
   );
 
   if (!selectedUniversity) {
-    return <p>No university found</p>;
+    notFound();
   }
 
   return (
     <div className="details-container">
       <button onClick={handleCloseDetailsPage} className="close-details">
-        Close
+        <i className="bi bi-x-lg"></i> {t('detailsPage.close')}
       </button>
       <h2>{selectedUniversity.name}</h2>
       <p>
-        <strong>Country:</strong> {selectedUniversity.country}
+        <strong>{t('detailsPage.country')}:</strong>{' '}
+        {selectedUniversity.country}
       </p>
       <p>
-        <strong>Domains:</strong> {selectedUniversity.domains.join(', ')}
+        <strong>{t('detailsPage.domains')}:</strong>{' '}
+        {selectedUniversity.domains.join(', ')}
       </p>
       <p>
-        <strong>Web Site:</strong>{' '}
+        <strong>{t('detailsPage.webSite')}:</strong>{' '}
         <a
           href={selectedUniversity.web_pages[0]}
           target="_blank"
@@ -43,4 +62,4 @@ const DetailsPage: React.FC = () => {
   );
 };
 
-export { DetailsPage };
+export default DetailsPage;
