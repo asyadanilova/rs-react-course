@@ -1,52 +1,45 @@
-import { Component } from 'react';
-import './SearchContainer.scss';
-import { ErrorButton } from '../ErrorButton/ErrorButton';
+'use client';
 
-class SearchContainer extends Component {
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const searchTerm = event.target.value.toLowerCase().trim();
-    localStorage.setItem('searchTerm', searchTerm);
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../lib/store';
+import { setSearchTerm } from '@/lib/searchSlice';
+import './SearchContainer.scss';
+
+const SearchContainer = () => {
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const [inputTerm, setInputTerm] = useState(searchTerm);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTerm(event.target.value);
   };
 
-  handleSearch = (): void => {
+  const handleSearch = () => {
+    const normalizedTerm = inputTerm.toLowerCase().trim();
+    localStorage.setItem('searchTerm', normalizedTerm);
+    dispatch(setSearchTerm(normalizedTerm));
     window.dispatchEvent(new Event('searchTermUpdated'));
   };
 
-  searchInput(): JSX.Element {
-    return (
-      <>
+  return (
+    <div className="search">
+      <div className="search__input">
         <input
           type="text"
-          defaultValue={localStorage.getItem('searchTerm') || ''}
-          onChange={this.handleInputChange}
+          value={inputTerm}
+          onChange={handleInputChange}
           placeholder="Enter your request..."
           className="search-input"
         />
-      </>
-    );
-  }
-
-  searchButton(): JSX.Element {
-    return (
-      <>
-        <button className="button" onClick={this.handleSearch}>
+      </div>
+      <div className="search__button">
+        <button className="button" onClick={handleSearch}>
           Search <i className="bi bi-search"></i>
         </button>
-      </>
-    );
-  }
-
-  render(): JSX.Element {
-    return (
-      <>
-        <div className="search">
-          <div className="search__input">{this.searchInput()}</div>
-          <div className="search__button">{this.searchButton()}</div>
-          <ErrorButton />
-        </div>
-      </>
-    );
-  }
-}
+      </div>
+    </div>
+  );
+};
 
 export { SearchContainer };

@@ -1,52 +1,68 @@
-import { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+'use client';
+
 import './Header.scss';
+import { useTheme } from '../../hooks/useTheme';
+import { BsSunFill, BsMoonFill } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
+import { createNavigation } from 'next-intl/navigation';
+import nextIntlConfig from '../../../next-intl.config';
 
-class Header extends Component {
-  navButtons(): JSX.Element {
-    return (
-      <>
-        <ul className="nav_button">
-          <li>
-            <NavLink to="/" className="nav-link">
-              <i className="bi bi-house"></i> Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" className="nav-link">
-              <i className="bi bi-info-circle"></i> About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" className="nav-link">
-              <i className="bi bi-box-arrow-in-right"></i> Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/registration" className="nav-link">
-              <i className="bi bi-door-open"></i> Registration
-            </NavLink>
-          </li>
-        </ul>
-      </>
-    );
-  }
+const Header = () => {
+  const t = useTranslations();
+  const { Link } = createNavigation(nextIntlConfig);
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  render(): JSX.Element {
-    return (
-      <header className="header">
-        <Link to="/" className="header__logo-link">
-          <img
-            src="./graduation-cap.png"
-            alt="Site Icon"
-            className="header__logo-icon"
-          />
-          <span className="header__app-name">GlobalCampus</span>
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const navButtons = () => (
+    <ul className="nav_button">
+      <li>
+        <Link href="/" className="nav-link">
+          <i className="bi bi-house"></i> {t('header.home')}
         </Link>
-        <nav>{this.navButtons()}</nav>
-      </header>
-    );
-  }
-}
+      </li>
+      <li>
+        <Link href="/about" className="nav-link">
+          <i className="bi bi-info-circle"></i> {t('header.about')}
+        </Link>
+      </li>
+    </ul>
+  );
+
+  return (
+    <header className="header">
+      <Link href="/" className="header__logo-link">
+        <Image
+          src="/graduation-cap.png"
+          alt="Site Icon"
+          className="header__logo-icon"
+          width={32}
+          height={32}
+          unoptimized
+        />
+        <span className="header__app-name">{t('header.appName')}</span>
+      </Link>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <nav>{navButtons()}</nav>
+        <div
+          className="toggle-theme"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
+          {theme === 'light' ? <BsSunFill /> : <BsMoonFill />}
+        </div>
+        <LanguageSwitcher />
+      </div>
+    </header>
+  );
+};
 
 export { Header };

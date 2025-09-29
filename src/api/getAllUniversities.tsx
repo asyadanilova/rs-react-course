@@ -1,3 +1,4 @@
+import { University } from '@/utils/consts';
 import { makeApiRequest } from './makeApiRequest';
 
 export async function getAllUniversities(): Promise<University[]> {
