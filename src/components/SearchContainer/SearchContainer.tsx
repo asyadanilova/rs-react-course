@@ -1,37 +1,43 @@
+'use client';
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../lib/store';
+import { setSearchTerm } from '@/lib/searchSlice';
 import './SearchContainer.scss';
-import { ErrorButton } from '../ErrorButton/ErrorButton';
 
 const SearchContainer = () => {
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const [inputTerm, setInputTerm] = useState(searchTerm);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.toLowerCase().trim();
-    localStorage.setItem('searchTerm', searchTerm);
+    setInputTerm(event.target.value);
   };
 
   const handleSearch = () => {
+    const normalizedTerm = inputTerm.toLowerCase().trim();
+    localStorage.setItem('searchTerm', normalizedTerm);
+    dispatch(setSearchTerm(normalizedTerm));
     window.dispatchEvent(new Event('searchTermUpdated'));
   };
 
-  const searchInput = () => (
-    <input
-      type="text"
-      defaultValue={localStorage.getItem('searchTerm') || ''}
-      onChange={handleInputChange}
-      placeholder="Enter your request..."
-      className="search-input"
-    />
-  );
-
-  const searchButton = () => (
-    <button className="button" onClick={handleSearch}>
-      Search <i className="bi bi-search"></i>
-    </button>
-  );
-
   return (
     <div className="search">
-      <div className="search__input">{searchInput()}</div>
-      <div className="search__button">{searchButton()}</div>
-      <ErrorButton />
+      <div className="search__input">
+        <input
+          type="text"
+          value={inputTerm}
+          onChange={handleInputChange}
+          placeholder="Enter your request..."
+          className="search-input"
+        />
+      </div>
+      <div className="search__button">
+        <button className="button" onClick={handleSearch}>
+          Search <i className="bi bi-search"></i>
+        </button>
+      </div>
     </div>
   );
 };
